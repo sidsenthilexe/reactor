@@ -6,7 +6,7 @@ public class Game extends PApplet {
     ArrayList<Atom> atoms;
 
     public void settings() {
-        size(1280, 800);   // set the window size
+        size(1380, 750);   // set the window size
 
     }
 
@@ -16,7 +16,7 @@ public class Game extends PApplet {
 
         for (int x = 1; x <= 35; x++) {
             for (int y = 1; y <= 17; y++) {
-                Atom newAtom = new Atom(35*x, 35*y, Constants.ATOM_TYPE.URANIUM);
+                Atom newAtom = new Atom(35*x+60, 35*y+60, Constants.ATOM_TYPE.URANIUM);
                 atoms.add( newAtom );
             }
         }
