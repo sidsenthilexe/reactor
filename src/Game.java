@@ -1,28 +1,45 @@
 import processing.core.PApplet;
 import reactor.*;
+import reactor.Constants.AtomConstants.Create;
+import reactor.Constants.AtomConstants.AtomType;
+
+import java.util.ArrayList;
 
 public class Game extends PApplet {
-    // TODO: declare game variables
+    ArrayList<Atom> atoms;
+    Neutron testNeutron;
 
     public void settings() {
-        size(800, 800);   // set the window size
+        size(1600, 800);   // set the window size
 
     }
 
     public void setup() {
-        // TODO: initialize game variables
+        atoms = new ArrayList<>();
+
+        for (int x = 1; x <= Create.NUMROWS; x++) {
+            for (int y = 1; y <= Create.NUMCOLS; y++) {
+
+                Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
+                                        Create.DISTANCE * y + Create.BUFFER,
+                                        AtomType.URANIUM);
+                atoms.add(newAtom);
+
+            }
+        }
+
+        testNeutron = new Neutron(0, 0, (float) (Math.PI)/4 );
     }
 
-    /***
-     * Draws each frame to the screen.  Runs automatically in a loop at frameRate frames a second.
-     * tick each object (have it update itself), and draw each object
-     */
     public void draw() {
         background(255);    // paint screen white
-        fill(0,255,0);          // load green paint color
-        ellipse(mouseX, mouseY, 60, 60);  // draw circle at mouse loc
-        ellipse(mouseX - 80, mouseY, 60, 60);  // draw circle at mouse loc
-        ellipse(mouseX + 80, mouseY, 60, 60);  // draw circle at mouse loc
+
+        for (int i = 0; i < atoms.size(); i++) {
+            atoms.get(i).periodic(this);
+        }
+
+        testNeutron.periodic(this);
+
     }
 
     public static void main(String[] args) {
