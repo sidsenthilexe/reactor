@@ -1,34 +1,28 @@
 import processing.core.PApplet;
-
-import java.util.ArrayList;
+import reactor.*;
 
 public class Game extends PApplet {
-    ArrayList<Atom> atoms;
+    // TODO: declare game variables
 
     public void settings() {
-        size(1380, 750);   // set the window size
+        size(800, 800);   // set the window size
 
     }
 
     public void setup() {
-
-        atoms = new ArrayList<>();
-
-        for (int x = 1; x <= 35; x++) {
-            for (int y = 1; y <= 17; y++) {
-                Atom newAtom = new Atom(35*x+60, 35*y+60, Constants.ATOM_TYPE.URANIUM);
-                atoms.add( newAtom );
-            }
-        }
+        // TODO: initialize game variables
     }
 
+    /***
+     * Draws each frame to the screen.  Runs automatically in a loop at frameRate frames a second.
+     * tick each object (have it update itself), and draw each object
+     */
     public void draw() {
-        background(255);
-
-        for (Atom atom : atoms) {
-            atom.periodic(this);
-        }
-
+        background(255);    // paint screen white
+        fill(0,255,0);          // load green paint color
+        ellipse(mouseX, mouseY, 60, 60);  // draw circle at mouse loc
+        ellipse(mouseX - 80, mouseY, 60, 60);  // draw circle at mouse loc
+        ellipse(mouseX + 80, mouseY, 60, 60);  // draw circle at mouse loc
     }
 
     public static void main(String[] args) {
