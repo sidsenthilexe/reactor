@@ -15,6 +15,8 @@ public class Game extends PApplet {
     }
 
     public void setup() {
+        frameRate(30);
+
         atoms = new ArrayList<>();
         neutrons = new ArrayList<>();
 

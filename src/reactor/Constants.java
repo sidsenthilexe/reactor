@@ -36,7 +36,7 @@ public class Constants {
     }
 
     public static final class NeutronConstants{
-        public static int MOVESPEED = 2;
+        public static float MOVESPEED = 2;
         public static float SIZE = 8;
         public static int R = 69;
         public static int G = 69;
