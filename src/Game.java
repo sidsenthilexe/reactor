@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Game extends PApplet {
     ArrayList<Atom> atoms;
-    Neutron testNeutron;
+    ArrayList<Neutron> neutrons;
 
     public void settings() {
         size(1600, 800);   // set the window size
@@ -16,6 +16,7 @@ public class Game extends PApplet {
 
     public void setup() {
         atoms = new ArrayList<>();
+        neutrons = new ArrayList<>();
 
         for (int x = 1; x <= Create.NUMROWS; x++) {
             for (int y = 1; y <= Create.NUMCOLS; y++) {
@@ -28,7 +29,8 @@ public class Game extends PApplet {
             }
         }
 
-        testNeutron = new Neutron(0, 0, (float) (Math.PI)/4 );
+        Neutron testNeutron = new Neutron(0, 0, (float) (Math.PI)/4 );
+        neutrons.add(testNeutron);
     }
 
     public void draw() {
@@ -38,7 +40,9 @@ public class Game extends PApplet {
             atoms.get(i).periodic(this);
         }
 
-        testNeutron.periodic(this);
+        for (int i = 0; i < neutrons.size(); i++) {
+            neutrons.get(i).periodic(this, neutrons, atoms);
+        }
 
     }
 

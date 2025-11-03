@@ -17,7 +17,7 @@ public class Neutron {
         this.speed = NeutronConstants.MOVESPEED;
     }
 
-    public void collisions(ArrayList<Atom> atoms) {
+    private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {
         for (int i = 0; i < atoms.size(); i++) {
             Atom atom = atoms.get(i);
 
@@ -26,7 +26,7 @@ public class Neutron {
                 float dY = Math.abs(atom.getY() - this.y);
                 double distance = Math.sqrt(dX*dX + dY*dY);
                 if (distance <= atom.getSize()/2 + this.size/2) {
-                    //
+                     ParticleHandler.handleCollision(atom, this, neutrons);
                 }
 
 
@@ -34,10 +34,18 @@ public class Neutron {
         }
     }
 
-    public void periodic(PApplet window) {
+    private void screenExit(ArrayList<Neutron> neutrons) {
+        if (x<0 || y<0 || x>1600 || y<800) ParticleHandler.exitScreenHandler(this, neutrons);
+    }
+
+    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms) {
 
         x += (float) (speed*Math.cos(angle));
         y += (float) (speed*Math.sin(angle));
+
+        neutronUraniumCollisions(atoms, neutrons);
+
+        screenExit(neutrons);
 
         draw(window);
     }

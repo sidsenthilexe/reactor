@@ -15,6 +15,7 @@ public class Atom {
     }
 
     public AtomType getAtomType() { return atomType; }
+    public void setAtomType(AtomType atomType) { this.atomType = atomType; }
     public float getX() { return x; }
     public float getY() { return y; }
     public float getSize() { return size; }
