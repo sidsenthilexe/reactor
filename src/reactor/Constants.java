@@ -5,13 +5,13 @@ public class Constants {
     public static final class AtomConstants {
 
         public static final class Create {
-            public static int BUFFER = 30;
+            public static int BUFFER = 10;
             public static int DISTANCE = 38;
-            public static int NUMROWS = 35;
-            public static int NUMCOLS = 17;
+            public static int NUMROWS = 39;
+            public static int NUMCOLS = 21;
         }
 
-        public static float SIZE = 20;
+        public static float SIZE = 22;
 
         public enum AtomType {
             URANIUM(36,140,252),

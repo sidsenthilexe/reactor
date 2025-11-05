@@ -21,6 +21,34 @@ public class ParticleHandler {
     }
 
     public static void exitScreenHandler(Neutron neutron, ArrayList<Neutron> neutrons) {
+        neutrons.remove(neutron);
+    }
+
+    public static void createNeutron(float x, float y, float moveAngle, ArrayList<Neutron> neutrons) {
+        Neutron newNeutron = new Neutron(x, y, moveAngle);
+        neutrons.add(newNeutron);
+
+    }
+
+    public static void atomReplaceHandler(ArrayList<Atom> atoms) {
+        int targetUranium =125; //~ 10% concentration of uranium
+        int currentUranium = 0;
+        int uraniumDeficit = 0;
+
+        for (Atom atom : atoms) {
+            if (atom.getAtomType() == AtomType.URANIUM) currentUranium++;
+        }
+
+        if ( (targetUranium - currentUranium) > 0) uraniumDeficit = targetUranium-currentUranium;
+
+        while (uraniumDeficit > 0) {
+            int randomAtomIndex = (int) (Math.random() * 819);
+            if (atoms.get(randomAtomIndex).getAtomType() == AtomType.NONFISSILE) {
+                atoms.get(randomAtomIndex).setAtomType(AtomType.URANIUM);
+                uraniumDeficit--;
+            }
+        }
+
 
     }
 

@@ -3,6 +3,8 @@ import processing.core.PApplet;
 import reactor.Constants.AtomConstants;
 import reactor.Constants.AtomConstants.*;
 
+import java.util.ArrayList;
+
 public class Atom {
     private float x, y, size;
     private AtomType atomType;
@@ -20,7 +22,11 @@ public class Atom {
     public float getY() { return y; }
     public float getSize() { return size; }
 
-    public void periodic(PApplet window) {
+    public void periodic(PApplet window, ArrayList<Neutron> neutrons) {
+
+        if(this.atomType == AtomType.NONFISSILE) {
+            if ((int)(Math.random()*20000) == 0) ParticleHandler.createNeutron(this.x, this.y, (float) (Math.random() * Math.PI * 2), neutrons);
+        }
 
         draw(window);
     }

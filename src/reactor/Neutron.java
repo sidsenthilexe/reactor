@@ -35,7 +35,7 @@ public class Neutron {
     }
 
     private void screenExit(ArrayList<Neutron> neutrons) {
-        if (x<0 || y<0 || x>1600 || y<800) ParticleHandler.exitScreenHandler(this, neutrons);
+        if (x<0 || y<0 || x>1600 || y>850) ParticleHandler.exitScreenHandler(this, neutrons);
     }
 
     public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms) {
