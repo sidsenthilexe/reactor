@@ -2,6 +2,19 @@ package reactor;
 
 public class Constants {
 
+    public static final class ControlRodConstants {
+        public static float WIDTH = 8;
+        public static float HEIGHT = 785;
+        public static int R = 69;
+        public static int G = 69;
+        public static int B = 73;
+
+        public static int STARTGAP = 101;
+        public static int DISTANCE = 152;
+
+
+    }
+
     public static final class AtomConstants {
 
         public static final class Create {

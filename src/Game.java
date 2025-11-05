@@ -3,6 +3,7 @@ import processing.core.PApplet;
 import reactor.*;
 import reactor.Constants.AtomConstants.Create;
 import reactor.Constants.AtomConstants.AtomType;
+import reactor.Constants.ControlRodConstants;
 
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class Game extends PApplet {
     ArrayList<Atom> atoms;
     ArrayList<Neutron> neutrons;
+    ArrayList<ControlRod> controlRods;
 
     public void settings() {
         size(1600, 850);   // set the window size
@@ -21,6 +23,7 @@ public class Game extends PApplet {
 
         atoms = new ArrayList<>();
         neutrons = new ArrayList<>();
+        controlRods = new ArrayList<>();
 
         for (int x = 1; x <= Create.NUMROWS; x++) {
             for (int y = 1; y <= Create.NUMCOLS; y++) {
@@ -44,6 +47,11 @@ public class Game extends PApplet {
 
         Neutron testNeutron = new Neutron(1, 1, (float) (Math.PI)/4 );
         neutrons.add(testNeutron);
+
+        for (int x = 0; x < 10; x++) {
+            ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, 28);
+            controlRods.add(newControlRod);
+        }
     }
 
     public void draw() {
@@ -56,7 +64,11 @@ public class Game extends PApplet {
         }
 
         for (int i = 0; i < neutrons.size(); i++) {
-            neutrons.get(i).periodic(this, neutrons, atoms);
+            neutrons.get(i).periodic(this, neutrons, atoms, controlRods);
+        }
+
+        for (int i = 0; i < controlRods.size(); i++) {
+            controlRods.get(i).periodic(this, neutrons.size()+1);
         }
 
     }

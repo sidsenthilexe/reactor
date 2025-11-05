@@ -34,16 +34,39 @@ public class Neutron {
         }
     }
 
+    private void controlRodCollisions(ArrayList<ControlRod> controlRods, ArrayList<Neutron> neutrons) {
+        for (int i = 0; i < controlRods.size(); i++) {
+            ControlRod controlRod = controlRods.get(i);
+
+            if (x <= controlRod.getXCenter()) {
+                if ( (x + 11) > controlRod.getXMin() ) ParticleHandler.handleCollision(this, neutrons);
+            }
+            else if (x > controlRod.getXCenter()) {
+                if ( (x-11) < controlRod.getXMax() ) ParticleHandler.handleCollision(this, neutrons);
+            }
+            else if (y <= controlRod.getYCenter()) {
+                if ((y+11) > controlRod.getYTop() ) ParticleHandler.handleCollision(this, neutrons);
+            }
+            else if (y > controlRod.getYCenter()) {
+                if ((y-11) < controlRod.getYBottom() ) ParticleHandler.handleCollision(this, neutrons);
+            }
+
+
+        }
+    }
+
     private void screenExit(ArrayList<Neutron> neutrons) {
         if (x<0 || y<0 || x>1600 || y>850) ParticleHandler.exitScreenHandler(this, neutrons);
     }
 
-    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms) {
+    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods) {
 
         x += (float) (speed*Math.cos(angle));
         y += (float) (speed*Math.sin(angle));
 
         neutronUraniumCollisions(atoms, neutrons);
+
+        controlRodCollisions(controlRods, neutrons);
 
         screenExit(neutrons);
 

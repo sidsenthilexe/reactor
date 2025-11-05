@@ -20,6 +20,12 @@ public class ParticleHandler {
         neutrons.add(newNeutron3);
     }
 
+    public static void handleCollision(Neutron neutron, ArrayList<Neutron> neutrons) {
+        neutrons.remove(neutron);
+    }
+
+
+
     public static void exitScreenHandler(Neutron neutron, ArrayList<Neutron> neutrons) {
         neutrons.remove(neutron);
     }
