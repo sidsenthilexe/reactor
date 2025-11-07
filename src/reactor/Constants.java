@@ -28,7 +28,9 @@ public class Constants {
 
         public enum AtomType {
             URANIUM(36,140,252),
-            NONFISSILE(186,188,190);
+            NONFISSILE(186,188,190),
+            XENON(69, 69, 73);
+
 
             private final int R;
             private final int G;

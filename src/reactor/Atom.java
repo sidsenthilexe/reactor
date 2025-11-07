@@ -8,12 +8,14 @@ import java.util.ArrayList;
 public class Atom {
     private float x, y, size;
     private AtomType atomType;
+    private boolean queueForXenon;
 
     public Atom(float x, float y, AtomType atomType) {
         this.x = x;
         this.y = y;
         this.atomType = atomType;
         this.size = AtomConstants.SIZE;
+        queueForXenon = false;
     }
 
     public AtomType getAtomType() { return atomType; }
@@ -21,6 +23,9 @@ public class Atom {
     public float getX() { return x; }
     public float getY() { return y; }
     public float getSize() { return size; }
+
+    public void setQueueForXenon(boolean state) { queueForXenon = state; }
+
 
     public void periodic(PApplet window, ArrayList<Neutron> neutrons) {
 
