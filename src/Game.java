@@ -1,4 +1,5 @@
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle;
+import com.sun.xml.internal.ws.wsdl.writer.document.Part;
 import processing.core.PApplet;
 import reactor.*;
 import reactor.Constants.AtomConstants.Create;
@@ -45,7 +46,7 @@ public class Game extends PApplet {
             atoms.get(randomAtomIndex).setAtomType(AtomType.URANIUM);
         }
 
-        Neutron testNeutron = new Neutron(1, 1, (float) (Math.PI)/4 );
+        Neutron testNeutron = new Neutron(1, 700, (float) 0 );
         neutrons.add(testNeutron);
 
         for (int x = 0; x < 10; x++) {
@@ -58,6 +59,9 @@ public class Game extends PApplet {
         background(255);    // paint screen white
 
         ParticleHandler.atomReplaceHandler(atoms);
+
+        System.out.println(neutrons.size());
+        ParticleHandler.autoDeployControlRods(controlRods, neutrons);
 
         for (int i = 0; i < atoms.size(); i++) {
             atoms.get(i).periodic(this, neutrons);

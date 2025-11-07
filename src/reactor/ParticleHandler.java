@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class ParticleHandler {
 
+    private static float deployDoublePercent = 150;
+
     public static void handleCollision(Atom atom, Neutron neutron, ArrayList<Neutron> neutrons) {
         atom.setAtomType(AtomType.NONFISSILE);
         neutrons.remove(neutron);
@@ -56,6 +58,27 @@ public class ParticleHandler {
         }
 
 
+    }
+
+    public static void deployControlRodsTo(ArrayList<ControlRod> controlRods, float deployDoublePercent) {
+        if (deployDoublePercent > 100 && 200 >= deployDoublePercent) {
+            for (int i = 0; i < controlRods.size(); i++) {
+                if (i % 2 != 0) controlRods.get(i).setDeployPercent(100);
+                else controlRods.get(i).setDeployPercent( (deployDoublePercent - 100));
+            }
+        } else  if (deployDoublePercent <= 100 && 0 <= deployDoublePercent){
+            for (int i = 0; i < controlRods.size(); i++) {
+                if (i%2 == 0) controlRods.get(i).setDeployPercent(0);
+                else controlRods.get(i).setDeployPercent(deployDoublePercent);
+            }
+        }
+    }
+
+    public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, ArrayList<Neutron> neutrons) {
+        if (neutrons.size() < 55) deployDoublePercent-= 0.1F;
+        else if (neutrons.size() > 55) deployDoublePercent += 0.1F;
+
+        deployControlRodsTo(controlRods, deployDoublePercent);
     }
 
 }

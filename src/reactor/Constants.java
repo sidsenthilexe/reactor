@@ -20,7 +20,7 @@ public class Constants {
         public static final class Create {
             public static int BUFFER = 10;
             public static int DISTANCE = 38;
-            public static int NUMROWS = 39;
+            public static int NUMROWS = 40;
             public static int NUMCOLS = 21;
         }
 
