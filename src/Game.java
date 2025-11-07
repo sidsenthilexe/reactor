@@ -1,5 +1,3 @@
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle;
-import com.sun.xml.internal.ws.wsdl.writer.document.Part;
 import processing.core.PApplet;
 import reactor.*;
 import reactor.Constants.AtomConstants.Create;
@@ -60,20 +58,23 @@ public class Game extends PApplet {
 
         ParticleHandler.atomReplaceHandler(atoms);
 
-        System.out.println(neutrons.size());
-        ParticleHandler.autoDeployControlRods(controlRods, neutrons);
 
-        for (int i = 0; i < atoms.size(); i++) {
-            atoms.get(i).periodic(this, neutrons);
+        for (Atom atom : atoms) {
+            atom.periodic(this, neutrons);
         }
 
         for (int i = 0; i < neutrons.size(); i++) {
             neutrons.get(i).periodic(this, neutrons, atoms, controlRods);
         }
 
-        for (int i = 0; i < controlRods.size(); i++) {
-            controlRods.get(i).periodic(this, neutrons.size()+1);
+        System.out.println(neutrons.size());
+        ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());
+
+        for (ControlRod controlRod : controlRods) {
+            controlRod.periodic(this, neutrons.size() + 1);
         }
+
+
 
     }
 

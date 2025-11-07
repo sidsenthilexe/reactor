@@ -74,9 +74,9 @@ public class ParticleHandler {
         }
     }
 
-    public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, ArrayList<Neutron> neutrons) {
-        if (neutrons.size() < 55) deployDoublePercent-= 0.1F;
-        else if (neutrons.size() > 55) deployDoublePercent += 0.1F;
+    public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, int neutrons) {
+        if (neutrons < 40) deployDoublePercent-= 0.17F;
+        else if (neutrons > 40) deployDoublePercent += 0.17F;
 
         deployControlRodsTo(controlRods, deployDoublePercent);
     }
