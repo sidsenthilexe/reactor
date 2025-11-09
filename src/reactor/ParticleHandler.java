@@ -78,6 +78,8 @@ public class ParticleHandler {
         if (neutrons < 40) deployDoublePercent-= 0.17F;
         else if (neutrons > 40) deployDoublePercent += 0.17F;
 
+        deployDoublePercent = Math.max(Math.min(deployDoublePercent, 200), 0);
+
         deployControlRodsTo(controlRods, deployDoublePercent);
     }
 
