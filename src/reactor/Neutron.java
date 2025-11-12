@@ -20,17 +20,27 @@ public class Neutron {
     private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {
         for (int i = 0; i < atoms.size(); i++) {
             Atom atom = atoms.get(i);
-
-            if (atom.getAtomType() == AtomType.URANIUM) {
-                float dX = Math.abs(atom.getX() - this.x);
-                float dY = Math.abs(atom.getY() - this.y);
-                double distance = Math.sqrt(dX*dX + dY*dY);
-                if (distance <= atom.getSize()/2 + this.size/2) {
-                     ParticleHandler.handleCollision(atom, this, neutrons);
-                }
-
-
+            float dX = Math.abs(atom.getX() - this.x);
+            float dY = Math.abs(atom.getY() - this.y);
+            double distance = Math.sqrt(dX*dX + dY*dY);
+            if (distance <= atom.getSize()/2 + this.size/2) {
+                ParticleHandler.handleCollision(atom, this, neutrons);
             }
+
+        }
+    }
+
+    private void waterInteraction(ArrayList<Water> waters, ArrayList<Neutron> neutrons) {
+        for (int i = 0; i < waters.size(); i++) {
+            Water water = waters.get(i);
+
+            if (this.x > water.getMinX()
+                    && this.x < water.getMaxX()
+                    && this.y > water.getMinY()
+                    && this.y < water.getMaxY()) {
+                ParticleHandler.waterHeatingTick(water);
+            }
+
         }
     }
 
@@ -63,7 +73,7 @@ public class Neutron {
         if (x<0 || y<0 || x>1600 || y>850) ParticleHandler.exitScreenHandler(this, neutrons);
     }
 
-    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods) {
+    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods, ArrayList<Water> water) {
 
         x += (float) (speed*Math.cos(angle));
         y += (float) (speed*Math.sin(angle));
@@ -71,6 +81,8 @@ public class Neutron {
         neutronUraniumCollisions(atoms, neutrons);
 
         controlRodCollisions(controlRods, neutrons);
+
+        waterInteraction(water, neutrons);
 
         screenExit(neutrons);
 

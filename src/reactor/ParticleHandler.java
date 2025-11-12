@@ -8,18 +8,30 @@ public class ParticleHandler {
     private static float deployDoublePercent = 150;
 
     public static void handleCollision(Atom atom, Neutron neutron, ArrayList<Neutron> neutrons) {
-        atom.setAtomType(AtomType.NONFISSILE);
-        neutrons.remove(neutron);
-        float randAngle1 = (float) (Math.random() * Math.PI*2 / 3);
-        float randAngle2 = (float) ( (Math.random() * Math.PI*2 / 3) + (Math.PI * 2 / 3) );
-        float randAngle3 = (float) ( (Math.random() * Math.PI*2 / 3) + (Math.PI * 4 / 3) );
 
-        Neutron newNeutron1 = new Neutron(atom.getX(), atom.getY(), randAngle1);
-        Neutron newNeutron2 = new Neutron(atom.getX(), atom.getY(), randAngle2);
-        Neutron newNeutron3 = new Neutron(atom.getX(), atom.getY(), randAngle3);
-        neutrons.add(newNeutron1);
-        neutrons.add(newNeutron2);
-        neutrons.add(newNeutron3);
+
+        if (atom.getAtomType() == AtomType.URANIUM) {
+            atom.setAtomType(AtomType.NONFISSILE);
+
+            if ( (int)(Math.random() * 17) == 0) atom.setQueueForXenon(true);
+
+            neutrons.remove(neutron);
+            float randAngle1 = (float) (Math.random() * Math.PI * 2 / 3);
+            float randAngle2 = (float) ((Math.random() * Math.PI * 2 / 3) + (Math.PI * 2 / 3));
+            float randAngle3 = (float) ((Math.random() * Math.PI * 2 / 3) + (Math.PI * 4 / 3));
+
+            Neutron newNeutron1 = new Neutron(atom.getX(), atom.getY(), randAngle1);
+            Neutron newNeutron2 = new Neutron(atom.getX(), atom.getY(), randAngle2);
+            Neutron newNeutron3 = new Neutron(atom.getX(), atom.getY(), randAngle3);
+            neutrons.add(newNeutron1);
+            neutrons.add(newNeutron2);
+            neutrons.add(newNeutron3);
+        }
+
+        if (atom.getAtomType() == AtomType.XENON) {
+            neutrons.remove(neutron);
+            atom.setAtomType(AtomType.NONFISSILE);
+        }
     }
 
     public static void handleCollision(Neutron neutron, ArrayList<Neutron> neutrons) {
@@ -36,6 +48,10 @@ public class ParticleHandler {
         Neutron newNeutron = new Neutron(x, y, moveAngle);
         neutrons.add(newNeutron);
 
+    }
+
+    public static void waterHeatingTick(Water water) {
+        water.setWaterHeatPercent((float) (water.getWaterHeatPercent()+1));
     }
 
     public static void atomReplaceHandler(ArrayList<Atom> atoms) {
@@ -75,8 +91,8 @@ public class ParticleHandler {
     }
 
     public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, int neutrons) {
-        if (neutrons < 40) deployDoublePercent-= 0.17F;
-        else if (neutrons > 40) deployDoublePercent += 0.17F;
+        if (neutrons < 30) deployDoublePercent-= 0.20F;
+        else if (neutrons > 30) deployDoublePercent += 0.25F;
 
         deployDoublePercent = Math.max(Math.min(deployDoublePercent, 200), 0);
 

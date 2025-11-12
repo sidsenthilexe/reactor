@@ -2,6 +2,76 @@ package reactor;
 
 public class Constants {
 
+    public static final class WaterConstants {
+        public static float size = 34;
+
+        public static final class Color0 {
+            public static int R = 220;
+            public static int G = 236;
+            public static int B = 253;
+        }
+
+        public static final class Color10 {
+            public static int R = 228;
+            public static int G = 220;
+            public static int B = 230;
+        }
+
+        public static final class Color20 {
+            public static int R = 229;
+            public static int G = 204;
+            public static int B = 210;
+        }
+
+        public static final class Color30 {
+            public static int R = 230;
+            public static int G = 205;
+            public static int B = 211;
+        }
+
+        public static final class Color40 {
+            public static int R = 235;
+            public static int G = 188;
+            public static int B = 190;
+        }
+
+        public static final class Color50 {
+            public static int R = 242;
+            public static int G = 172;
+            public static int B = 167;
+        }
+
+        public static final class Color60 {
+            public static int R = 247;
+            public static int G = 160;
+            public static int B = 151;
+        }
+
+        public static final class Color70 {
+            public static int R = 252;
+            public static int G = 140;
+            public static int B = 124;
+        }
+
+        public static final class Color80 {
+            public static int R = 252;
+            public static int G = 116;
+            public static int B = 89;
+        }
+
+        public static final class Color90 {
+            public static int R = 253;
+            public static int G = 125;
+            public static int B = 105;
+        }
+
+        public static final class Color100 {
+            public static int R = 255;
+            public static int G = 255;
+            public static int B = 255;
+        }
+    }
+
     public static final class ControlRodConstants {
         public static float WIDTH = 8;
         public static float HEIGHT = 785;

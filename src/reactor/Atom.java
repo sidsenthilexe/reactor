@@ -25,12 +25,20 @@ public class Atom {
     public float getSize() { return size; }
 
     public void setQueueForXenon(boolean state) { queueForXenon = state; }
+    public boolean getQueueForXenon() { return queueForXenon; }
 
 
     public void periodic(PApplet window, ArrayList<Neutron> neutrons) {
 
         if(this.atomType == AtomType.NONFISSILE) {
-            if ((int)(Math.random()*20000) == 0) ParticleHandler.createNeutron(this.x, this.y, (float) (Math.random() * Math.PI * 2), neutrons);
+            if ((int)(Math.random()*50000) == 0) ParticleHandler.createNeutron(this.x, this.y, (float) (Math.random() * Math.PI * 2), neutrons);
+        }
+
+        if(this.atomType == AtomType.NONFISSILE && this.queueForXenon) {
+            if ((int)(Math.random()*120) == 0) {
+                this.queueForXenon = false;
+                setAtomType(AtomType.XENON);
+            }
         }
 
         draw(window);
