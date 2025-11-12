@@ -28,7 +28,7 @@ public class Water {
 
     public void periodic (PApplet window) {
 
-        waterHeatPercent -= 0.5F;
+        waterHeatPercent -= 0.3F;
 
         waterHeatPercent = Math.max(0, waterHeatPercent);
 

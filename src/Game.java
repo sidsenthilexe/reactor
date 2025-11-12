@@ -33,7 +33,7 @@ public class Game extends PApplet {
                 for (int y = 1; y <= Create.NUMCOLS; y++) {
                     AtomType newAtomType;
 
-                    if (x == 1 && y == 1) newAtomType = AtomType.URANIUM;
+                    if (x == 3 && y == 18) newAtomType = AtomType.URANIUM;
                     else newAtomType = AtomType.NONFISSILE;
 
                     Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
