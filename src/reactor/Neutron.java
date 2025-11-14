@@ -10,6 +10,7 @@ public class Neutron {
     private float x, y, size;
     private float angle, speed;
 
+
     public Neutron(float x, float y, float moveAngle) {
         this.x = x;
         this.y = y;
@@ -41,7 +42,7 @@ public class Neutron {
                     && this.y < water.getMaxY()) {
                 ParticleHandler.waterHeatingTick(water);
 
-                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*350) == 0) {
+                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*400) == 0) {
                     ParticleHandler.handleCollision(this, neutrons);
                 }
             }

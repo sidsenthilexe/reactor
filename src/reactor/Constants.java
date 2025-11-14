@@ -4,7 +4,11 @@ public class Constants {
 
 
     // DO NOT CHANGE FROM 1 UNLESS DEMOING
-    // CURRENT MAX: 5
+    // 1: Demo with all current features
+    // 2: Single neutron interaction with Uranium
+    // 3: Single neutron interaction with a grid
+    // 4: Water demo
+    // 5: Xenon demo
     public static int DEMOVERSION = 1;
 
     public static final class WaterConstants {

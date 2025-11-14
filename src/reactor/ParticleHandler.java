@@ -1,12 +1,13 @@
 package reactor;
+import processing.core.PApplet;
 import reactor.Constants.AtomConstants.AtomType;
-import reactor.Constants;
 
 import java.util.ArrayList;
 
 public class ParticleHandler {
 
     private static float deployDoublePercent = 150;
+
 
     public static int getCRDeployDoublePercent() { return (int)deployDoublePercent; }
 

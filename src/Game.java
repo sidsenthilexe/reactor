@@ -14,12 +14,9 @@ public class Game extends PApplet {
     ArrayList<ControlRod> controlRods;
     ArrayList<Water> water;
 
-    // SET UP DEMO VERSION HERE
-    // 1: Demo with all current features
-    // 2: Single neutron interaction with Uranium
-    // 3: Single neutron interaction with a grid
-    // 4: Water demo
-    // 5: Xenon demo
+    int uraniumCount;
+    int xenonCount;
+
     int demoVersion = reactor.Constants.DEMOVERSION;
 
     public void settings() {
@@ -70,6 +67,7 @@ public class Game extends PApplet {
                 ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, 28);
                 controlRods.add(newControlRod);
             }
+
         } else if (demoVersion == 2) {
 
             atoms = new ArrayList<>();
@@ -155,8 +153,15 @@ public class Game extends PApplet {
             water.periodic(this);
         }
 
+        uraniumCount = 0;
+        xenonCount = 0;
+
         for (Atom atom : atoms) {
+
             atom.periodic(this, neutrons);
+            if (atom.getAtomType() == AtomType.URANIUM) uraniumCount ++;
+            else if (atom.getAtomType() == AtomType.XENON) xenonCount ++;
+
         }
 
         for (int i = 0; i < neutrons.size(); i++) {
@@ -177,6 +182,8 @@ public class Game extends PApplet {
         textFont(mono);
         text("reactor     N: " + (neutrons.size())
                         + "     CR: " + ParticleHandler.getCRDeployDoublePercent()
+                        + "     U: " + uraniumCount + " / 840"
+                        + "     XE: " + xenonCount + " / 840"
                         + "     " + frameCount + " @ " + (int)frameRate
                         + "     " + System.getProperty("os.arch"),
                 30, 844);
