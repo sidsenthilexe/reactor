@@ -1,5 +1,6 @@
 package reactor;
 import processing.core.PApplet;
+import reactor.Constants;
 import reactor.Constants.NeutronConstants;
 import reactor.Constants.AtomConstants.AtomType;
 
@@ -40,7 +41,7 @@ public class Neutron {
                     && this.y < water.getMaxY()) {
                 ParticleHandler.waterHeatingTick(water);
 
-                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*430) == 0) {
+                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*350) == 0) {
                     ParticleHandler.handleCollision(this, neutrons);
                 }
             }
@@ -76,7 +77,7 @@ public class Neutron {
     }
 
     private void screenExit(ArrayList<Neutron> neutrons) {
-        if (x<0 || y<0 || x>1600 || y>850) ParticleHandler.exitScreenHandler(this, neutrons);
+        if ((x<0 || y<0 || x>1600 || y>850) && Constants.DEMOVERSION == 1) ParticleHandler.exitScreenHandler(this, neutrons);
     }
 
     public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods, ArrayList<Water> water) {

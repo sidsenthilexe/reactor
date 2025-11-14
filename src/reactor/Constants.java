@@ -2,6 +2,11 @@ package reactor;
 
 public class Constants {
 
+
+    // DO NOT CHANGE FROM 1 UNLESS DEMOING
+    // CURRENT MAX: 5
+    public static int DEMOVERSION = 1;
+
     public static final class WaterConstants {
         public static float size = 34;
 

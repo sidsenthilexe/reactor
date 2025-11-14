@@ -30,7 +30,7 @@ public class Atom {
 
     public void periodic(PApplet window, ArrayList<Neutron> neutrons) {
 
-        if(this.atomType == AtomType.NONFISSILE) {
+        if(this.atomType == AtomType.NONFISSILE && Constants.DEMOVERSION == 1) {
             if ((int)(Math.random()*50000) == 0) ParticleHandler.createNeutron(this.x, this.y, (float) (Math.random() * Math.PI * 2), neutrons);
         }
 

@@ -1,5 +1,6 @@
 package reactor;
 import reactor.Constants.AtomConstants.AtomType;
+import reactor.Constants;
 
 import java.util.ArrayList;
 
@@ -7,13 +8,16 @@ public class ParticleHandler {
 
     private static float deployDoublePercent = 150;
 
+    public static int getCRDeployDoublePercent() { return (int)deployDoublePercent; }
+
     public static void handleCollision(Atom atom, Neutron neutron, ArrayList<Neutron> neutrons) {
 
 
         if (atom.getAtomType() == AtomType.URANIUM) {
             atom.setAtomType(AtomType.NONFISSILE);
 
-            if ( (int)(Math.random() * 17) == 0) atom.setQueueForXenon(true);
+            if ( (int)(Math.random() * 17) == 0 && Constants.DEMOVERSION == 1) atom.setQueueForXenon(true);
+            if (Constants.DEMOVERSION == 5) atom.setQueueForXenon(true);
 
             neutrons.remove(neutron);
             float randAngle1 = (float) (Math.random() * Math.PI * 2 / 3);
@@ -67,7 +71,7 @@ public class ParticleHandler {
 
         while (uraniumDeficit > 0) {
             int randomAtomIndex = (int) (Math.random() * 819);
-            if (atoms.get(randomAtomIndex).getAtomType() == AtomType.NONFISSILE) {
+            if (randomAtomIndex < atoms.size() && atoms.get(randomAtomIndex).getAtomType() == AtomType.NONFISSILE) {
                 atoms.get(randomAtomIndex).setAtomType(AtomType.URANIUM);
                 uraniumDeficit--;
             }

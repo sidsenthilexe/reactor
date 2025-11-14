@@ -13,7 +13,14 @@ public class Game extends PApplet {
     ArrayList<Neutron> neutrons;
     ArrayList<ControlRod> controlRods;
     ArrayList<Water> water;
-    int demoVersion = 1;
+
+    // SET UP DEMO VERSION HERE
+    // 1: Demo with all current features
+    // 2: Single neutron interaction with Uranium
+    // 3: Single neutron interaction with a grid
+    // 4: Water demo
+    // 5: Xenon demo
+    int demoVersion = reactor.Constants.DEMOVERSION;
 
     public void settings() {
         size(1600, 850);   // set the window size
@@ -21,6 +28,7 @@ public class Game extends PApplet {
     }
 
     public void setup() {
+        surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
 
         if (demoVersion == 1) {
@@ -62,13 +70,85 @@ public class Game extends PApplet {
                 ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, 28);
                 controlRods.add(newControlRod);
             }
+        } else if (demoVersion == 2) {
+
+            atoms = new ArrayList<>();
+            neutrons = new ArrayList<>();
+            controlRods = new ArrayList<>();
+            water = new ArrayList<>();
+
+            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+            atoms.add(newAtom);
+
+
+
+            Neutron testNeutron = new Neutron(250,  425, (float) 0);
+            neutrons.add(testNeutron);
+
+        } else if (demoVersion == 3) {
+            atoms = new ArrayList<>();
+            neutrons = new ArrayList<>();
+            controlRods = new ArrayList<>();
+            water = new ArrayList<>();
+
+            for (int x = 1; x <= Create.NUMROWS; x++) {
+                for (int y = 1; y <= Create.NUMCOLS; y++) {
+
+                    Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
+                            Create.DISTANCE * y + Create.BUFFER,
+                            AtomType.URANIUM);
+                    atoms.add(newAtom);
+
+                }
+            }
+
+            Neutron testNeutron = new Neutron(1,  1, (float) Math.PI / 4);
+            neutrons.add(testNeutron);
+        } else if (demoVersion == 4) {
+            atoms = new ArrayList<>();
+            neutrons = new ArrayList<>();
+            controlRods = new ArrayList<>();
+            water = new ArrayList<>();
+
+            for (int x = 1; x <= Create.NUMROWS; x++) {
+                for (int y = 1; y <= Create.NUMCOLS; y++) {
+                    Water newWater = new Water((Create.DISTANCE * x + Create.BUFFER) - 17,
+                            (Create.DISTANCE * y + Create.BUFFER) - 17);
+                    water.add(newWater);
+
+                }
+            }
+
+            for (int x = 1; x < 50; x++) {
+                for (int y = 1; y < 25; y++) {
+                    Neutron newNeutron = new Neutron(x * (15) - 600, y * (30) + 50, (float) ((Math.random() * Math.PI / 6) - Math.PI / 12));
+                    neutrons.add(newNeutron);
+                }
+            }
+
+
+        } else if (demoVersion == 5) {
+            atoms = new ArrayList<>();
+            neutrons = new ArrayList<>();
+            controlRods = new ArrayList<>();
+            water = new ArrayList<>();
+
+            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+            atoms.add(newAtom);
+
+
+
+            Neutron neutronOne = new Neutron(450,  425, (float) 0);
+            Neutron neutronTwo = new Neutron(50, 425, 0F);
+            neutrons.add(neutronOne);
+            neutrons.add(neutronTwo);
         }
     }
 
     public void draw() {
         background(255);    // paint screen white
 
-        ParticleHandler.atomReplaceHandler(atoms);
+        if (demoVersion == 1) ParticleHandler.atomReplaceHandler(atoms);
 
 
         for (Water water: water) {
@@ -83,20 +163,23 @@ public class Game extends PApplet {
             neutrons.get(i).periodic(this, neutrons, atoms, controlRods, water);
         }
 
-        System.out.println(neutrons.size());
         ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());
 
         for (ControlRod controlRod : controlRods) {
-            controlRod.periodic(this, neutrons.size() + 1);
+            controlRod.periodic(this, neutrons.size());
         }
 
         fill(0,0,0);
         stroke(0,0,0);
-        textSize(25);
+        textSize(20);
         PFont mono;
-        mono = createFont("consola.ttf", 25);
+        mono = createFont("consola.ttf", 20);
         textFont(mono);
-        text(neutrons.size()+1, 50, 23);
+        text("reactor     N: " + (neutrons.size())
+                        + "     CR: " + ParticleHandler.getCRDeployDoublePercent()
+                        + "     " + frameCount + " @ " + (int)frameRate
+                        + "     " + System.getProperty("os.arch"),
+                30, 844);
 
 
 
