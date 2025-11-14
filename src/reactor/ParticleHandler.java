@@ -92,7 +92,7 @@ public class ParticleHandler {
 
     public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, int neutrons) {
         if (neutrons < 30) deployDoublePercent-= 0.20F;
-        else if (neutrons > 30) deployDoublePercent += 0.25F;
+        else if (neutrons > 33) deployDoublePercent += 0.25F;
 
         deployDoublePercent = Math.max(Math.min(deployDoublePercent, 200), 0);
 

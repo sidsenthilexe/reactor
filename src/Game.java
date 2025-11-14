@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 import reactor.*;
 import reactor.Constants.AtomConstants.Create;
 import reactor.Constants.AtomConstants.AtomType;
@@ -88,6 +89,14 @@ public class Game extends PApplet {
         for (ControlRod controlRod : controlRods) {
             controlRod.periodic(this, neutrons.size() + 1);
         }
+
+        fill(0,0,0);
+        stroke(0,0,0);
+        textSize(25);
+        PFont mono;
+        mono = createFont("consola.ttf", 25);
+        textFont(mono);
+        text(neutrons.size()+1, 50, 23);
 
 
 

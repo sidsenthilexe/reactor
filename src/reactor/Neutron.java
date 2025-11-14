@@ -39,7 +39,13 @@ public class Neutron {
                     && this.y > water.getMinY()
                     && this.y < water.getMaxY()) {
                 ParticleHandler.waterHeatingTick(water);
+
+                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*430) == 0) {
+                    ParticleHandler.handleCollision(this, neutrons);
+                }
             }
+
+
 
         }
     }
