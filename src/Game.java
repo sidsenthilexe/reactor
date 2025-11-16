@@ -1,5 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.opengl.*;
+import com.jogamp.opengl.GL;
 import reactor.*;
 import reactor.Constants.AtomConstants.Create;
 import reactor.Constants.AtomConstants.AtomType;
@@ -14,6 +16,10 @@ public class Game extends PApplet {
     ArrayList<ControlRod> controlRods;
     ArrayList<Water> water;
 
+    String gpuVendor = "N/A";
+    String gpuName = "N/A";
+    String rendererName;
+
     int uraniumCount;
     int xenonCount;
 
@@ -25,11 +31,22 @@ public class Game extends PApplet {
     }
 
     public void setup() {
-        println("java ver " + System.getProperty("java.version"));
-        println("renderer " + g.getClass().getName());
 
         surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
+
+        if (g instanceof PGraphicsOpenGL) {
+            PGraphicsOpenGL pg = (PGraphicsOpenGL) g;
+            pg.beginPGL();
+            PJOGL pgl = (PJOGL) pg.pgl;
+            gpuVendor = pgl.gl.glGetString(GL.GL_VENDOR);
+            gpuName = pgl.gl.glGetString(GL.GL_RENDERER);
+            pg.endPGL();
+        }
+
+        rendererName = g.getClass().getName();
+
+        System.out.println("Rendering with\n" + rendererName + "\non\n" + gpuVendor + " " + gpuName);
 
         if (demoVersion == 1) {
 
@@ -183,13 +200,20 @@ public class Game extends PApplet {
         PFont mono;
         mono = createFont("consola.ttf", 20);
         textFont(mono);
+
+
+
         text("reactor     N: " + (neutrons.size())
-                        + "     CR: " + ParticleHandler.getCRDeployDoublePercent()
-                        + "     U: " + uraniumCount + " / 840"
-                        + "     XE: " + xenonCount + " / 840"
-                        + "     " + frameCount + " @ " + (int)frameRate
-                        + "     " + System.getProperty("os.arch"),
+                        + "     CR: " + ParticleHandler.getCRDeployDoublePercent(),
                 30, 844);
+
+        text("     U: " + uraniumCount + " / 840"
+                + "     XE: " + xenonCount + " / 840"
+                + "     " + frameCount + " @ " + (int)frameRate,
+                350, 844);
+
+        text("     " + gpuName,
+                855, 844);
 
 
 
