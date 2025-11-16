@@ -20,6 +20,8 @@ public class Game extends PApplet {
     String gpuName = "N/A";
     String rendererName;
 
+    PFont mono;
+
     int uraniumCount;
     int xenonCount;
 
@@ -34,6 +36,9 @@ public class Game extends PApplet {
 
         surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
+
+        mono = createFont("consola.ttf", 20);
+        textFont(mono);
 
         if (g instanceof PGraphicsOpenGL) {
             PGraphicsOpenGL pg = (PGraphicsOpenGL) g;
@@ -197,9 +202,6 @@ public class Game extends PApplet {
         fill(0,0,0);
         stroke(0,0,0);
         textSize(20);
-        PFont mono;
-        mono = createFont("consola.ttf", 20);
-        textFont(mono);
 
 
 

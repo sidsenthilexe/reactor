@@ -1,8 +1,6 @@
 package reactor;
 import processing.core.PApplet;
-import reactor.Constants;
 import reactor.Constants.NeutronConstants;
-import reactor.Constants.AtomConstants.AtomType;
 
 import java.util.ArrayList;
 
@@ -22,11 +20,13 @@ public class Neutron {
     private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {
         for (int i = 0; i < atoms.size(); i++) {
             Atom atom = atoms.get(i);
-            float dX = Math.abs(atom.getX() - this.x);
-            float dY = Math.abs(atom.getY() - this.y);
-            double distance = Math.sqrt(dX*dX + dY*dY);
-            if (distance <= atom.getSize()/2 + this.size/2) {
-                ParticleHandler.handleCollision(atom, this, neutrons);
+            if (x <= atom.getBoundingBoxR() && x >= atom.getBoundingBoxL() && y <= atom.getBoundingBoxB() && y >= atom.getBoundingBoxT()) {
+                float dX = Math.abs(atom.getX() - this.x);
+                float dY = Math.abs(atom.getY() - this.y);
+                double distance = Math.sqrt(dX*dX + dY*dY);
+                if (distance <= atom.getSize()/2 + this.size/2) {
+                    ParticleHandler.handleCollision(atom, this, neutrons);
+                }
             }
 
         }

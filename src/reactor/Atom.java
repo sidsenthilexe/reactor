@@ -2,11 +2,11 @@ package reactor;
 import processing.core.PApplet;
 import reactor.Constants.AtomConstants;
 import reactor.Constants.AtomConstants.*;
-
 import java.util.ArrayList;
 
 public class Atom {
     private float x, y, size;
+    private float boundingBoxL, boundingBoxR, boundingBoxT, boundingBoxB;
     private AtomType atomType;
     private boolean queueForXenon;
 
@@ -16,6 +16,10 @@ public class Atom {
         this.atomType = atomType;
         this.size = AtomConstants.SIZE;
         queueForXenon = false;
+        boundingBoxL = (x - (size/2)) - (Constants.NeutronConstants.SIZE/2);
+        boundingBoxR = (x + (size/2)) + (Constants.NeutronConstants.SIZE/2);
+        boundingBoxT = (y - (size/2)) - (Constants.NeutronConstants.SIZE/2);
+        boundingBoxB = (y + (size/2)) - (Constants.NeutronConstants.SIZE/2);
     }
 
     public AtomType getAtomType() { return atomType; }
@@ -23,6 +27,11 @@ public class Atom {
     public float getX() { return x; }
     public float getY() { return y; }
     public float getSize() { return size; }
+
+    public float getBoundingBoxL() { return boundingBoxL; }
+    public float getBoundingBoxR() { return boundingBoxR; }
+    public float getBoundingBoxT() { return boundingBoxT; }
+    public float getBoundingBoxB() { return boundingBoxB; }
 
     public void setQueueForXenon(boolean state) { queueForXenon = state; }
     public boolean getQueueForXenon() { return queueForXenon; }
