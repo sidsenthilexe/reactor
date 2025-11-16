@@ -20,11 +20,14 @@ public class Game extends PApplet {
     int demoVersion = reactor.Constants.DEMOVERSION;
 
     public void settings() {
-        size(1600, 850);   // set the window size
+        size(1600, 850, P2D);   // set the window size
 
     }
 
     public void setup() {
+        println("java ver " + System.getProperty("java.version"));
+        println("renderer " + g.getClass().getName());
+
         surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
 
