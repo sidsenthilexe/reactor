@@ -46,7 +46,7 @@ public class Game extends PApplet {
 
         rendererName = g.getClass().getName();
 
-        System.out.println("Rendering with\n" + rendererName + "\non\n" + gpuVendor + " " + gpuName);
+        System.out.println("JAVA: " + System.getProperty("java.version") + " " + System.getProperty("java.vendor") + "\nRENDERER: " + rendererName + "\nGRAPHICS DEVICE: " + gpuVendor + " " + gpuName);
 
         if (demoVersion == 1) {
 
@@ -216,10 +216,13 @@ public class Game extends PApplet {
                 855, 844);
 
 
-
     }
 
     public static void main(String[] args) {
+        System.setProperty("NV_OPTIMUS_ENABLEMENT", "1");
+        System.setProperty("AMD_SWITCHABLE_GRAPHICS_ENABLEMENT", "1");
+        System.setProperty("sun.java2d.opengl", "true");
+
         PApplet.main("Game");
     }
 }
