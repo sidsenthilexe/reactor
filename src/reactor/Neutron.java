@@ -60,16 +60,16 @@ public class Neutron {
             // part of it is hitting the rod, and is within the vertical bounds of th rod
             if (x <= controlRod.getXCenter()
                     && x + 4 >= controlRod.getXMin()
-                    && y-4 >= controlRod.getYTop()
-                    && y+4 <= controlRod.getYBottom()) {
+                    && y+4 >= controlRod.getYTop()
+                    && y-4 <= controlRod.getYBottom()) {
                 ParticleHandler.handleCollision(this, neutrons);
             }
 
             // if the neutron is to the right of the rod, part of it is hitting, and is within vertical bounds.
             else if (x >= controlRod.getXCenter()
                     && x - 4 <= controlRod.getXMax()
-                    && y-4 >= controlRod.getYTop()
-                    && y+4 <= controlRod.getYBottom()) {
+                    && y+4 >= controlRod.getYTop()
+                    && y-4 <= controlRod.getYBottom()) {
                 ParticleHandler.handleCollision(this, neutrons);
             }
 
