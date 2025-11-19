@@ -28,14 +28,15 @@ public class Game extends PApplet {
     int demoVersion = reactor.Constants.DEMOVERSION;
 
     public void settings() {
+
         try {
             size(1600, 850, P2D);// set the window size, set renderer
-        } catch (Exception error) {
-            System.out.println("PGraphics2D Load Failed " + error);
+        } catch (Exception err1) {
+            System.out.println("Likely PGraphics2D Load Failed " + err1);
             try {
                 size(1600, 850);
-            } catch (Exception e2) {
-                System.out.println("Java2D Load Failed " + error);
+            } catch (Exception err2) {
+                System.out.println("Likely Java2D Load Failed " + err2);
             }
         }
 
