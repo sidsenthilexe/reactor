@@ -25,12 +25,10 @@ public class ControlRod {
     public float getDeployPercent() { return deployPercent; }
     public void setDeployPercent(float deployPercent) { this.deployPercent = deployPercent; }
 
-    public float getXMin() { return x; }
-    public float getXMax() { return x + width; }
-    public float getXCenter() { return x + (width/2); }
-    public float getYTop() { return pos; }
-    public float getYBottom() { return pos + height; }
-    public float getYCenter() { return pos + (height/2); }
+    public float getBoundRight() { return x + width + 4; }
+    public float getBoundLeft() { return x - 4; }
+    public float getBoundTop() { return pos - 4; }
+    public float getBoundBottom() { return pos + height + 4; }
 
     private void draw(PApplet window) {
         window.fill(ControlRodConstants.R, ControlRodConstants.G, ControlRodConstants.B);
