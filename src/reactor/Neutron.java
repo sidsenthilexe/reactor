@@ -17,7 +17,7 @@ public class Neutron {
         this.angle = moveAngle;
         this.size = NeutronConstants.SIZE;
         this.speed = NeutronConstants.MOVESPEED;
-        this.moderated = false;
+        this.moderated = true;
     }
 
     private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {

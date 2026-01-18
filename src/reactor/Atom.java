@@ -19,7 +19,7 @@ public class Atom {
         boundingBoxL = (x - (size/2)) - (Constants.NeutronConstants.SIZE/2);
         boundingBoxR = (x + (size/2)) + (Constants.NeutronConstants.SIZE/2);
         boundingBoxT = (y - (size/2)) - (Constants.NeutronConstants.SIZE/2);
-        boundingBoxB = (y + (size/2)) - (Constants.NeutronConstants.SIZE/2);
+        boundingBoxB = (y + (size/2)) + (Constants.NeutronConstants.SIZE/2);
     }
 
     public AtomType getAtomType() { return atomType; }
