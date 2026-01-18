@@ -7,16 +7,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="core" level="project" />
-    <orderEntry type="library" exported="" name="gluegen-rt" level="project" />
-    <orderEntry type="library" exported="" name="gluegen-rt-natives-windows-amd64" level="project" />
-    <orderEntry type="library" exported="" name="jogl-all" level="project" />
-    <orderEntry type="library" exported="" name="jogl-all-natives-windows-amd64" level="project" />
-    <orderEntry type="library" exported="" name="gluegen-rt-natives-linux-aarch64" level="project" />
-    <orderEntry type="library" exported="" name="gluegen-rt-natives-linux-amd64" level="project" />
-    <orderEntry type="library" exported="" name="gluegen-rt-natives-macosx-universal" level="project" />
-    <orderEntry type="library" exported="" name="jogl-all-natives-linux-aarch64" level="project" />
-    <orderEntry type="library" exported="" name="jogl-all-natives-linux-amd64" level="project" />
-    <orderEntry type="library" exported="" name="jogl-all-natives-macosx-universal" level="project" />
+    <orderEntry type="library" name="core" level="project" />
+    <orderEntry type="library" name="gluegen-rt" level="project" />
+    <orderEntry type="library" name="gluegen-rt-natives-linux-aarch64" level="project" />
+    <orderEntry type="library" name="gluegen-rt-natives-linux-amd64" level="project" />
+    <orderEntry type="library" name="gluegen-rt-natives-macosx-universal" level="project" />
+    <orderEntry type="library" name="gluegen-rt-natives-windows-amd64" level="project" />
+    <orderEntry type="library" name="jogl-all" level="project" />
+    <orderEntry type="library" name="jogl-all-natives-linux-aarch64" level="project" />
+    <orderEntry type="library" name="jogl-all-natives-linux-amd64" level="project" />
+    <orderEntry type="library" name="jogl-all-natives-macosx-universal" level="project" />
+    <orderEntry type="library" name="jogl-all-natives-windows-amd64" level="project" />
   </component>
 </module>
