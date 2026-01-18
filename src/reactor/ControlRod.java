@@ -16,7 +16,7 @@ public class ControlRod {
         deployPercent = 100;
     }
 
-    public void periodic(PApplet window, int numNeutrons) {
+    public void periodic(PApplet window) {
         this.pos = 28 - ( (100-deployPercent) * 8) ;
 
         draw(window);

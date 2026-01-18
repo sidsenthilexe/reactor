@@ -90,8 +90,22 @@ public class Constants {
 
         public static int STARTGAP = 101;
         public static int DISTANCE = 152;
+        public static int STARTPOS = 28;
 
 
+    }
+
+    public static final class NeutronModeratorConstants {
+        public static float WIDTH = 8;
+        public static float HEIGHT = 785;
+
+        public static int R = 69;
+        public static int G = 69;
+        public static int B = 73;
+
+        public static int STARTY = 34;
+        public static int STARTGAP = 25;
+        public static int DISTANCE = 152;
     }
 
     public static final class AtomConstants {

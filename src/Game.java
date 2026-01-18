@@ -6,6 +6,7 @@ import reactor.*;
 import reactor.Constants.AtomConstants.Create;
 import reactor.Constants.AtomConstants.AtomType;
 import reactor.Constants.ControlRodConstants;
+import reactor.Constants.NeutronModeratorConstants;
 
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Game extends PApplet {
     ArrayList<Atom> atoms;
     ArrayList<Neutron> neutrons;
     ArrayList<ControlRod> controlRods;
+    ArrayList<NeutronModerator> neutronModerators;
     ArrayList<Water> water;
 
     String gpuVendor = "N/A";
@@ -61,13 +63,16 @@ public class Game extends PApplet {
 
         rendererName = g.getClass().getName();
 
-        System.out.println("JAVA: " + System.getProperty("java.version") + " " + System.getProperty("java.vendor") + "\nRENDERER: " + rendererName + "\nGRAPHICS DEVICE: " + gpuVendor + " " + gpuName);
+        System.out.println("JAVA: " + System.getProperty("java.version") + " " + System.getProperty("java.vendor") +
+                "\nRENDERER: " + rendererName +
+                "\nGRAPHICS DEVICE: " + gpuVendor + " " + gpuName);
 
         if (demoVersion == 1) {
 
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
             controlRods = new ArrayList<>();
+            neutronModerators = new ArrayList<>();
             water = new ArrayList<>();
 
             for (int x = 1; x <= Create.NUMROWS; x++) {
@@ -99,11 +104,17 @@ public class Game extends PApplet {
 
 
             for (int x = 0; x < 10; x++) {
-                ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, 28);
+                ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, ControlRodConstants.STARTPOS);
                 controlRods.add(newControlRod);
             }
 
-        } else if (demoVersion == 2) {
+            for (int x = 0; x < 10; x++) {
+                NeutronModerator newNeutronModerator = new NeutronModerator(NeutronModeratorConstants.DISTANCE * x + NeutronModeratorConstants.STARTGAP, NeutronModeratorConstants.STARTY);
+                neutronModerators.add(newNeutronModerator);
+            }
+
+        }
+        else if (demoVersion == 2) {
 
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
@@ -118,7 +129,8 @@ public class Game extends PApplet {
             Neutron testNeutron = new Neutron(250,  425, (float) 0);
             neutrons.add(testNeutron);
 
-        } else if (demoVersion == 3) {
+        }
+        else if (demoVersion == 3) {
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
             controlRods = new ArrayList<>();
@@ -137,7 +149,8 @@ public class Game extends PApplet {
 
             Neutron testNeutron = new Neutron(1,  1, (float) Math.PI / 4);
             neutrons.add(testNeutron);
-        } else if (demoVersion == 4) {
+        }
+        else if (demoVersion == 4) {
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
             controlRods = new ArrayList<>();
@@ -160,7 +173,8 @@ public class Game extends PApplet {
             }
 
 
-        } else if (demoVersion == 5) {
+        }
+        else if (demoVersion == 5) {
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
             controlRods = new ArrayList<>();
@@ -206,7 +220,11 @@ public class Game extends PApplet {
         ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());
 
         for (ControlRod controlRod : controlRods) {
-            controlRod.periodic(this, neutrons.size());
+            controlRod.periodic(this);
+        }
+
+        for (NeutronModerator neutronModerator : neutronModerators) {
+            neutronModerator.periodic(this);
         }
 
         fill(0,0,0);
