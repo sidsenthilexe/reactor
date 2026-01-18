@@ -43,6 +43,10 @@ public class ParticleHandler {
         neutrons.remove(neutron);
     }
 
+    public static void handleCollisionModerate(Neutron neutron) {
+        neutron.setModerationState(true);
+    }
+
 
 
     public static void exitScreenHandler(Neutron neutron, ArrayList<Neutron> neutrons) {

@@ -214,7 +214,7 @@ public class Game extends PApplet {
         }
 
         for (int i = 0; i < neutrons.size(); i++) {
-            neutrons.get(i).periodic(this, neutrons, atoms, controlRods, water);
+            neutrons.get(i).periodic(this, neutrons, atoms, controlRods, neutronModerators, water);
         }
 
         ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());

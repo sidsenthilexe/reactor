@@ -17,7 +17,7 @@ public class Neutron {
         this.angle = moveAngle;
         this.size = NeutronConstants.SIZE;
         this.speed = NeutronConstants.MOVESPEED;
-        this.moderated = true;
+        this.moderated = false;
     }
 
     private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {
@@ -73,11 +73,31 @@ public class Neutron {
         }
     }
 
+    private void neutronModeratorCollisions(ArrayList<NeutronModerator> neutronModerators) {
+        if (!moderated) {
+            for (int i = 0; i < neutronModerators.size(); i++) {
+                NeutronModerator neutronModerator = neutronModerators.get(i);
+
+                if (this.x <= neutronModerator.getBoundRight()
+                        && this.x >= neutronModerator.getBoundLeft()
+                        && this.y >= neutronModerator.getBoundTop()
+                        && this.y <= neutronModerator.getBoundBottom()) {
+
+                    ParticleHandler.handleCollisionModerate(this);
+                }
+            }
+        }
+    }
+
+    public void setModerationState(boolean state) {
+        this.moderated = state;
+    }
+
     private void screenExit(ArrayList<Neutron> neutrons) {
         if ((x<0 || y<0 || x>1600 || y>850) && Constants.DEMOVERSION == 1) ParticleHandler.exitScreenHandler(this, neutrons);
     }
 
-    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods, ArrayList<Water> water) {
+    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods, ArrayList<NeutronModerator> neutronModerators, ArrayList<Water> water) {
 
         x += (float) (speed*Math.cos(angle));
         y += (float) (speed*Math.sin(angle));
@@ -86,6 +106,8 @@ public class Neutron {
 
         controlRodCollisions(controlRods, neutrons);
 
+        neutronModeratorCollisions(neutronModerators);
+
         waterInteraction(water, neutrons);
 
         screenExit(neutrons);
@@ -93,7 +115,7 @@ public class Neutron {
         draw(window);
     }
 
-    public void draw(PApplet window) {
+    private void draw(PApplet window) {
         if (moderated) {
             window.fill(NeutronConstants.R, NeutronConstants.G, NeutronConstants.B);
             window.stroke(NeutronConstants.R, NeutronConstants.G, NeutronConstants.B);
