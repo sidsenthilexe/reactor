@@ -49,7 +49,7 @@ public class Game extends PApplet {
         surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
 
-        mono = createFont("consola.ttf", 20);
+        mono = createFont("B612Mono-Regular.ttf", 16);
         textFont(mono);
 
         if (g instanceof PGraphicsOpenGL) {
@@ -225,7 +225,7 @@ public class Game extends PApplet {
 
         fill(0,0,0);
         stroke(0,0,0);
-        textSize(20);
+        textSize(16);
 
 
 
