@@ -16,7 +16,7 @@ public class Neutron {
         this.y = y;
         this.angle = moveAngle;
         this.size = NeutronConstants.SIZE;
-        this.speed = NeutronConstants.MOVESPEED;
+        this.speed = NeutronConstants.UNMODMOVESPEED;
         this.moderated = false;
     }
 
@@ -89,7 +89,11 @@ public class Neutron {
         }
     }
 
-    public void setModerationState(boolean state) { this.moderated = state; }
+    public void setModerationState(boolean state) {
+        this.moderated = state;
+        if (state) speed = NeutronConstants.MOVESPEED;
+        else speed = NeutronConstants.UNMODMOVESPEED;
+    }
 
     public float getAngle() { return angle; }
 
