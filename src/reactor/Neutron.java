@@ -47,7 +47,7 @@ public class Neutron {
                     && this.y <= water.getMaxY()) {
                 ParticleHandler.waterHeatingTick(water);
 
-                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*400) == 0) {
+                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*600) == 0 && moderated) {
                     ParticleHandler.handleCollision(this, neutrons);
                 }
             }
@@ -105,11 +105,14 @@ public class Neutron {
         x += (float) (speed*Math.cos(angle));
         y += (float) (speed*Math.sin(angle));
 
-        neutronUraniumCollisions(atoms, neutrons);
+        if (moderated) {
+            neutronUraniumCollisions(atoms, neutrons);
+            controlRodCollisions(controlRods, neutrons);
+        }
 
-        controlRodCollisions(controlRods, neutrons);
-
-        neutronModeratorCollisions(neutronModerators);
+        if (!moderated) {
+            neutronModeratorCollisions(neutronModerators);
+        }
 
         waterInteraction(water, neutrons);
 

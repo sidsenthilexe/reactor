@@ -116,14 +116,7 @@ public class Game extends PApplet {
         }
         else if (demoVersion == 2) {
 
-            atoms = new ArrayList<>();
-            neutrons = new ArrayList<>();
-            controlRods = new ArrayList<>();
-            water = new ArrayList<>();
-
-            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
-            atoms.add(newAtom);
-
+            universalInitArrayLists();
 
 
             Neutron testNeutron = new Neutron(250,  425, (float) 0);
@@ -175,14 +168,7 @@ public class Game extends PApplet {
 
         }
         else if (demoVersion == 5) {
-            atoms = new ArrayList<>();
-            neutrons = new ArrayList<>();
-            controlRods = new ArrayList<>();
-            water = new ArrayList<>();
-
-            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
-            atoms.add(newAtom);
-
+            universalInitArrayLists();
 
 
             Neutron neutronOne = new Neutron(450,  425, (float) 0);
@@ -190,6 +176,16 @@ public class Game extends PApplet {
             neutrons.add(neutronOne);
             neutrons.add(neutronTwo);
         }
+    }
+
+    private void universalInitArrayLists() {
+        atoms = new ArrayList<>();
+        neutrons = new ArrayList<>();
+        controlRods = new ArrayList<>();
+        water = new ArrayList<>();
+
+        Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+        atoms.add(newAtom);
     }
 
     public void draw() {
@@ -213,10 +209,6 @@ public class Game extends PApplet {
 
         }
 
-        for (int i = 0; i < neutrons.size(); i++) {
-            neutrons.get(i).periodic(this, neutrons, atoms, controlRods, neutronModerators, water);
-        }
-
         ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());
 
         for (ControlRod controlRod : controlRods) {
@@ -225,6 +217,10 @@ public class Game extends PApplet {
 
         for (NeutronModerator neutronModerator : neutronModerators) {
             neutronModerator.periodic(this);
+        }
+
+        for (int i = 0; i < neutrons.size(); i++) {
+            neutrons.get(i).periodic(this, neutrons, atoms, controlRods, neutronModerators, water);
         }
 
         fill(0,0,0);
