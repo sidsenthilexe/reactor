@@ -89,9 +89,12 @@ public class Neutron {
         }
     }
 
-    public void setModerationState(boolean state) {
-        this.moderated = state;
-    }
+    public void setModerationState(boolean state) { this.moderated = state; }
+
+    public float getAngle() { return angle; }
+
+    public void setAngle(float angle) { this.angle = angle; }
+
 
     private void screenExit(ArrayList<Neutron> neutrons) {
         if ((x<0 || y<0 || x>1600 || y>850) && Constants.DEMOVERSION == 1) ParticleHandler.exitScreenHandler(this, neutrons);

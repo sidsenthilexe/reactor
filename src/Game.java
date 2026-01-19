@@ -99,7 +99,7 @@ public class Game extends PApplet {
                 atoms.get(randomAtomIndex).setAtomType(AtomType.URANIUM);
             }
 
-            Neutron testNeutron = new Neutron(1,  700, (float) 0);
+            Neutron testNeutron = new Neutron(120,  5, 1f);
             neutrons.add(testNeutron);
 
 

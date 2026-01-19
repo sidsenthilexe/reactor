@@ -45,6 +45,10 @@ public class ParticleHandler {
 
     public static void handleCollisionModerate(Neutron neutron) {
         neutron.setModerationState(true);
+        float angle = neutron.getAngle();
+        angle = (float)(Math.PI - angle);
+        angle = (float) ((angle % (2*Math.PI) + 2 * Math.PI) % (2 * Math.PI));
+        neutron.setAngle(angle);
     }
 
 
