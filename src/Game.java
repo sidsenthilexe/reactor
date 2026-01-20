@@ -34,7 +34,11 @@ public class Game extends PApplet {
     public void settings() {
 
         JOptionPane.showMessageDialog(null, "Test Message");
+        String[] modes = {"1", "2", "3", "4", "5"};
+        String norm = "1";
 
+        Object dModeResponse = JOptionPane.showInputDialog(null, "Select Mode","Mode Selection", JOptionPane.QUESTION_MESSAGE, null, modes, norm);
+        demoVersion = Integer.parseInt(dModeResponse.toString());
 
         try {
             size(1600, 850, P2D);// set the window size, set renderer
