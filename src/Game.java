@@ -9,9 +9,11 @@ import reactor.Constants.ControlRodConstants;
 import reactor.Constants.NeutronModeratorConstants;
 
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Game extends PApplet {
+
     ArrayList<Atom> atoms;
     ArrayList<Neutron> neutrons;
     ArrayList<ControlRod> controlRods;
@@ -31,6 +33,9 @@ public class Game extends PApplet {
 
     public void settings() {
 
+        JOptionPane.showMessageDialog(null, "Test Message");
+
+
         try {
             size(1600, 850, P2D);// set the window size, set renderer
         } catch (Exception err1) {
@@ -45,6 +50,7 @@ public class Game extends PApplet {
     }
 
     public void setup() {
+
 
         surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
@@ -176,6 +182,7 @@ public class Game extends PApplet {
             neutrons.add(neutronOne);
             neutrons.add(neutronTwo);
         }
+
     }
 
     private void universalInitArrayLists() {
