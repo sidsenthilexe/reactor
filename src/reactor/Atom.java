@@ -5,8 +5,8 @@ import reactor.Constants.AtomConstants.*;
 import java.util.ArrayList;
 
 public class Atom {
-    private float x, y, size;
-    private float boundingBoxL, boundingBoxR, boundingBoxT, boundingBoxB;
+    private final float x, y, size;
+    private final float boundingBoxL, boundingBoxR, boundingBoxT, boundingBoxB;
     private AtomType atomType;
     private boolean queueForXenon;
 
@@ -34,7 +34,7 @@ public class Atom {
     public float getBoundingBoxB() { return boundingBoxB; }
 
     public void setQueueForXenon(boolean state) { queueForXenon = state; }
-    public boolean getQueueForXenon() { return queueForXenon; }
+    //public boolean getQueueForXenon() { return queueForXenon; }
 
 
     public void periodic(PApplet window, ArrayList<Neutron> neutrons) {

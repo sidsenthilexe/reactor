@@ -4,8 +4,8 @@ import processing.core.PApplet;
 import reactor.Constants.NeutronModeratorConstants;
 
 public class NeutronModerator {
-    private float x, y;
-    private float width, height;
+    private final float x, y;
+    private final float width, height;
 
     public NeutronModerator(float x, float y) {
         this.x = x;

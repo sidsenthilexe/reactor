@@ -6,8 +6,8 @@ import reactor.Constants.AtomConstants.AtomType;
 import java.util.ArrayList;
 
 public class Neutron {
-    private float x, y, size;
-    private float angle, speed;
+    private float x, y, angle, speed;
+    private final float size;
     private boolean moderated;
 
 
@@ -22,36 +22,32 @@ public class Neutron {
 
     private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {
         if (this.moderated) {
-        for (int i = 0; i < atoms.size(); i++) {
-            Atom atom = atoms.get(i);
-            if (atom.getAtomType() != AtomType.NONFISSILE && x <= atom.getBoundingBoxR() && x >= atom.getBoundingBoxL() && y <= atom.getBoundingBoxB() && y >= atom.getBoundingBoxT()) {
-                float dX = Math.abs(atom.getX() - this.x);
-                float dY = Math.abs(atom.getY() - this.y);
-                double distance = Math.sqrt(dX*dX + dY*dY);
-                if (distance <= atom.getSize()/2 + this.size/2) {
-                    ParticleHandler.handleCollision(atom, this, neutrons);
+            for (Atom atom : atoms) {
+                if (atom.getAtomType() != AtomType.NONFISSILE && x <= atom.getBoundingBoxR() && x >= atom.getBoundingBoxL() && y <= atom.getBoundingBoxB() && y >= atom.getBoundingBoxT()) {
+                    float dX = Math.abs(atom.getX() - this.x);
+                    float dY = Math.abs(atom.getY() - this.y);
+                    double distance = Math.sqrt(dX * dX + dY * dY);
+                    if (distance <= atom.getSize() / 2 + this.size / 2) {
+                        ParticleHandler.handleCollision(atom, this, neutrons);
+                    }
                 }
-            }
 
-        }
+            }
         }
     }
 
     private void waterInteraction(ArrayList<Water> waters, ArrayList<Neutron> neutrons) {
-        for (int i = 0; i < waters.size(); i++) {
-            Water water = waters.get(i);
-
+        for (Water water : waters) {
             if (this.x >= water.getMinX()
                     && this.x <= water.getMaxX()
                     && this.y >= water.getMinY()
                     && this.y <= water.getMaxY()) {
                 ParticleHandler.waterHeatingTick(water);
 
-                if (water.getWaterHeatPercent() < 95 && (int)(Math.random()*600) == 0 && moderated) {
+                if (water.getWaterHeatPercent() < 95 && (int) (Math.random() * 600) == 0 && moderated) {
                     ParticleHandler.handleCollision(this, neutrons);
                 }
             }
-
 
 
         }
@@ -59,9 +55,7 @@ public class Neutron {
 
     private void controlRodCollisions(ArrayList<ControlRod> controlRods, ArrayList<Neutron> neutrons) {
         if(moderated) {
-            for (int i = 0; i < controlRods.size(); i++) {
-                ControlRod controlRod = controlRods.get(i);
-
+            for (ControlRod controlRod : controlRods) {
                 if (this.x <= controlRod.getBoundRight()
                         && this.x >= controlRod.getBoundLeft()
                         && this.y >= controlRod.getBoundTop()
@@ -75,9 +69,7 @@ public class Neutron {
 
     private void neutronModeratorCollisions(ArrayList<NeutronModerator> neutronModerators) {
         if (!moderated) {
-            for (int i = 0; i < neutronModerators.size(); i++) {
-                NeutronModerator neutronModerator = neutronModerators.get(i);
-
+            for (NeutronModerator neutronModerator : neutronModerators) {
                 if (this.x <= neutronModerator.getBoundRight()
                         && this.x >= neutronModerator.getBoundLeft()
                         && this.y >= neutronModerator.getBoundTop()
@@ -94,6 +86,8 @@ public class Neutron {
         if (state) speed = NeutronConstants.MOVESPEED;
         else speed = NeutronConstants.UNMODMOVESPEED;
     }
+
+    //public boolean getModerationState() { return this.moderated; }
 
     public float getAngle() { return angle; }
 

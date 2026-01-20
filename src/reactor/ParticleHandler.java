@@ -1,5 +1,4 @@
 package reactor;
-import processing.core.PApplet;
 import reactor.Constants.AtomConstants.AtomType;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class ParticleHandler {
     }
 
     public static void waterHeatingTick(Water water) {
-        water.setWaterHeatPercent((float) (water.getWaterHeatPercent()+1));
+        water.setWaterHeatPercent(water.getWaterHeatPercent()+1);
     }
 
     public static void atomReplaceHandler(ArrayList<Atom> atoms) {
@@ -104,8 +103,8 @@ public class ParticleHandler {
     }
 
     public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, int neutrons) {
-        if (neutrons < 30) deployDoublePercent-= 0.20F;
-        else if (neutrons > 33) deployDoublePercent += 0.25F;
+        if (neutrons < 45) deployDoublePercent-= 0.20F;
+        else if (neutrons > 45) deployDoublePercent += 0.25F;
 
         deployDoublePercent = Math.max(Math.min(deployDoublePercent, 200), 0);
 

@@ -4,8 +4,8 @@ import processing.core.PApplet;
 import reactor.Constants.ControlRodConstants;
 
 public class ControlRod {
-    private float x, pos;
-    private float width, height;
+    private final float x, width, height;
+    private float pos;
     private float deployPercent;
 
     public ControlRod(float x, float pos) {
@@ -22,7 +22,7 @@ public class ControlRod {
         draw(window);
     }
 
-    public float getDeployPercent() { return deployPercent; }
+    // public float getDeployPercent() { return deployPercent; }
     public void setDeployPercent(float deployPercent) { this.deployPercent = deployPercent; }
 
     public float getBoundRight() { return x + width + 4; }

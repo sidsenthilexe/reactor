@@ -7,7 +7,7 @@ import reactor.Constants.WaterConstants.*;
 public class Water {
 
     private float waterHeatPercent;
-    private float size, x, y;
+    private final float size, x, y;
 
     public Water(float x, float y) {
         this.size = WaterConstants.size;
