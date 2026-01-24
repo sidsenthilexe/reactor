@@ -268,8 +268,8 @@ public class Game extends PApplet {
                         + "     CR: " + ParticleHandler.getCRDeployDoublePercent(),
                 30, 844);
 
-        text("     U: " + uraniumCount + " / 840"
-                + "     XE: " + xenonCount + " / 840"
+        text("     U: " + uraniumCount + " / " + atoms.size()
+                + "     XE: " + xenonCount + " / " + atoms.size()
                 + "     " + frameCount + " @ " + (int)frameRate,
                 350, 844);
 
