@@ -17,7 +17,7 @@ public class Neutron {
         this.angle = moveAngle;
         this.size = NeutronConstants.SIZE;
         this.speed = NeutronConstants.UNMODMOVESPEED;
-        this.moderated = false;
+        this.moderated = Constants.DEMOVERSION != 1 && Constants.DEMOVERSION != 6;
     }
 
     private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {

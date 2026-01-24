@@ -11,6 +11,16 @@ public class Constants {
     // 5: Xenon demo
     public static int DEMOVERSION = 1;
 
+    public static String SETUPMESSAGE =
+            "Welcome to reactor! Here is an overview of the available modes\n" +
+            " 1. Full simulation\n" +
+            " 2. Demo of a neutron interacting with Uraniumn\n" +
+            " 3. Demo of a neutron interacting with a grid of Uranium\n"+
+            " 4. Demo of water absorbing neutrons, and heating up\n" +
+            " 5. Demo of xenon absorbing neutrons\n" +
+            " 6. Demo of a neutron moderator slowing down a neutron";
+
+
     public static final class WaterConstants {
         public static float size = 34;
 

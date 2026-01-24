@@ -33,12 +33,7 @@ public class Game extends PApplet {
 
     public void settings() {
 
-        JOptionPane.showMessageDialog(null, "Test Message");
-        String[] modes = {"1", "2", "3", "4", "5"};
-        String norm = "1";
-
-        Object dModeResponse = JOptionPane.showInputDialog(null, "Select Mode","Mode Selection", JOptionPane.QUESTION_MESSAGE, null, modes, norm);
-        demoVersion = Integer.parseInt(dModeResponse.toString());
+        setupWindows();
 
         try {
             size(1600, 850, P2D);// set the window size, set renderer
@@ -51,6 +46,16 @@ public class Game extends PApplet {
             }
         }
 
+    }
+
+    private void setupWindows() {
+        JOptionPane.showMessageDialog(null, Constants.SETUPMESSAGE);
+        String[] modes = {"1", "2", "3", "4", "5", "6"};
+        String norm = "1";
+
+        Object dModeResponse = JOptionPane.showInputDialog(null, "Select Mode","Mode Selection", JOptionPane.QUESTION_MESSAGE, null, modes, norm);
+        demoVersion = Integer.parseInt(dModeResponse.toString());
+        Constants.DEMOVERSION = demoVersion;
     }
 
     public void setup() {
@@ -137,6 +142,7 @@ public class Game extends PApplet {
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
             controlRods = new ArrayList<>();
+            neutronModerators = new ArrayList<>();
             water = new ArrayList<>();
 
             for (int x = 1; x <= Create.NUMROWS; x++) {
@@ -157,6 +163,7 @@ public class Game extends PApplet {
             atoms = new ArrayList<>();
             neutrons = new ArrayList<>();
             controlRods = new ArrayList<>();
+            neutronModerators = new ArrayList<>();
             water = new ArrayList<>();
 
             for (int x = 1; x <= Create.NUMROWS; x++) {
@@ -185,6 +192,23 @@ public class Game extends PApplet {
             Neutron neutronTwo = new Neutron(50, 425, 0F);
             neutrons.add(neutronOne);
             neutrons.add(neutronTwo);
+        }
+        else if (demoVersion == 6) {
+            atoms = new ArrayList<>();
+            neutrons = new ArrayList<>();
+            controlRods = new ArrayList<>();
+            neutronModerators = new ArrayList<>();
+            water = new ArrayList<>();
+
+            Neutron newNeutron = new Neutron(500, 425, 0);
+            neutrons.add(newNeutron);
+
+            Atom newAtom = new Atom(700, 425, AtomType.URANIUM);
+            atoms.add(newAtom);
+
+            NeutronModerator newNeutronModerator = new NeutronModerator(900, 34);
+            neutronModerators.add(newNeutronModerator);
+
         }
 
     }
