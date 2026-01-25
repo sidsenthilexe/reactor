@@ -14,8 +14,13 @@ public class Constants {
     public static boolean CLICKMUTED = false;
     public static boolean AUTODEPLOY = true;
 
+    public static String MODE1MSG =
+            "Mute/unmute the audio with 'm'\n" +
+            "Toggle automatic control of the Control Rods with 'c'\n" +
+            "While in manual mode, move the Control Rods with the up or down arrow.";
+
     public static String SETUPMESSAGE =
-            "Welcome to reactor! Here is an overview of the available modes\n" +
+            "Welcome to reactor! Overview of available modes:\n" +
             " 1. Full simulation\n" +
             " 2. Demo of a neutron interacting with Uraniumn\n" +
             " 3. Demo of a neutron interacting with a grid of Uranium\n"+

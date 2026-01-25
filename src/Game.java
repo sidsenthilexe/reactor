@@ -42,7 +42,7 @@ public class Game extends PApplet {
         try {
             size(1600, 850, P2D);// set the window size, set renderer
         } catch (Exception err1) {
-            System.out.println("Likely PGraphics2D Load Failed " + err1);
+            System.out.println("Likely PGraphics2D Load Failed\nRetrying with Java2D...\n" + err1);
             try {
                 size(1600, 850);
             } catch (Exception err2) {
@@ -59,6 +59,9 @@ public class Game extends PApplet {
 
         Object dModeResponse = JOptionPane.showInputDialog(null, "Select Mode","Mode Selection", JOptionPane.QUESTION_MESSAGE, null, modes, norm);
         demoVersion = Integer.parseInt(dModeResponse.toString());
+
+        if (demoVersion == 1) JOptionPane.showMessageDialog(null, Constants.MODE1MSG);
+
         Constants.DEMOVERSION = demoVersion;
     }
 
