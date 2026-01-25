@@ -20,5 +20,6 @@
     <orderEntry type="library" name="jogl-all-natives-windows-amd64" level="project" />
     <orderEntry type="library" name="sound" level="project" />
     <orderEntry type="library" name="jsyn-17.1.0" level="project" />
+    <orderEntry type="library" name="flatlaf-3.7" level="project" />
   </component>
 </module>
