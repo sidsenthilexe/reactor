@@ -1,4 +1,5 @@
 package reactor;
+import processing.sound.SoundFile;
 import reactor.Constants.AtomConstants.AtomType;
 
 import java.util.ArrayList;
@@ -10,11 +11,12 @@ public class ParticleHandler {
 
     public static int getCRDeployDoublePercent() { return (int)deployDoublePercent; }
 
-    public static void handleCollision(Atom atom, Neutron neutron, ArrayList<Neutron> neutrons) {
-
+    public static void handleCollision(Atom atom, Neutron neutron, ArrayList<Neutron> neutrons, SoundFile click) {
 
         if (atom.getAtomType() == AtomType.URANIUM) {
             atom.setAtomType(AtomType.NONFISSILE);
+
+            if (!Constants.CLICKMUTED) click.play();
 
             if ( (int)(Math.random() * 17) == 0 && Constants.DEMOVERSION == 1) atom.setQueueForXenon(true);
             if (Constants.DEMOVERSION == 5) atom.setQueueForXenon(true);
@@ -100,6 +102,14 @@ public class ParticleHandler {
                 else controlRods.get(i).setDeployPercent(deployDoublePercent);
             }
         }
+    }
+
+    public static void manualDeployControlRodsUp(ArrayList<ControlRod> controlRods) {
+        deployControlRodsTo(controlRods, Math.max(0, deployDoublePercent--));
+    }
+
+    public static void manualDeployControlRodsDown(ArrayList<ControlRod> controlRods) {
+        deployControlRodsTo(controlRods, Math.min(200, deployDoublePercent++));
     }
 
     public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, int neutrons) {

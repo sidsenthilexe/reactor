@@ -1,5 +1,6 @@
 package reactor;
 import processing.core.PApplet;
+import processing.sound.SoundFile;
 import reactor.Constants.NeutronConstants;
 import reactor.Constants.AtomConstants.AtomType;
 
@@ -20,7 +21,7 @@ public class Neutron {
         this.moderated = Constants.DEMOVERSION != 1 && Constants.DEMOVERSION != 6;
     }
 
-    private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons) {
+    private void neutronUraniumCollisions(ArrayList<Atom> atoms, ArrayList<Neutron> neutrons, SoundFile click) {
         if (this.moderated) {
             for (Atom atom : atoms) {
                 if (atom.getAtomType() != AtomType.NONFISSILE && x <= atom.getBoundingBoxR() && x >= atom.getBoundingBoxL() && y <= atom.getBoundingBoxB() && y >= atom.getBoundingBoxT()) {
@@ -28,7 +29,7 @@ public class Neutron {
                     float dY = Math.abs(atom.getY() - this.y);
                     double distance = Math.sqrt(dX * dX + dY * dY);
                     if (distance <= atom.getSize() / 2 + this.size / 2) {
-                        ParticleHandler.handleCollision(atom, this, neutrons);
+                        ParticleHandler.handleCollision(atom, this, neutrons, click);
                     }
                 }
 
@@ -98,13 +99,13 @@ public class Neutron {
         if ((x<0 || y<0 || x>1600 || y>850) && Constants.DEMOVERSION == 1) ParticleHandler.exitScreenHandler(this, neutrons);
     }
 
-    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods, ArrayList<NeutronModerator> neutronModerators, ArrayList<Water> water) {
+    public void periodic(PApplet window, ArrayList<Neutron> neutrons, ArrayList<Atom> atoms, ArrayList<ControlRod> controlRods, ArrayList<NeutronModerator> neutronModerators, ArrayList<Water> water, SoundFile click) {
 
         x += (float) (speed*Math.cos(angle));
         y += (float) (speed*Math.sin(angle));
 
         if (moderated) {
-            neutronUraniumCollisions(atoms, neutrons);
+            neutronUraniumCollisions(atoms, neutrons, click);
             controlRodCollisions(controlRods, neutrons);
         }
 

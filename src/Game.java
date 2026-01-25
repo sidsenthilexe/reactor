@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.sound.*;
 import processing.opengl.*;
 import com.jogamp.opengl.GL;
 import reactor.*;
@@ -7,7 +8,6 @@ import reactor.Constants.AtomConstants.Create;
 import reactor.Constants.AtomConstants.AtomType;
 import reactor.Constants.ControlRodConstants;
 import reactor.Constants.NeutronModeratorConstants;
-
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -25,11 +25,15 @@ public class Game extends PApplet {
     String rendererName;
 
     PFont mono;
+    SoundFile click;
 
     int uraniumCount;
     int xenonCount;
 
     int demoVersion = reactor.Constants.DEMOVERSION;
+
+    private boolean upHeld = false;
+    private boolean downHeld = false;
 
     public void settings() {
 
@@ -67,6 +71,8 @@ public class Game extends PApplet {
         mono = createFont("B612Mono-Regular.ttf", 16);
         textFont(mono);
 
+        click = new SoundFile(this, "click.wav");
+
         if (g instanceof PGraphicsOpenGL) {
             PGraphicsOpenGL pg = (PGraphicsOpenGL) g;
             pg.beginPGL();
@@ -83,12 +89,7 @@ public class Game extends PApplet {
                 "\nGRAPHICS DEVICE: " + gpuVendor + " " + gpuName);
 
         if (demoVersion == 1) {
-
-            atoms = new ArrayList<>();
-            neutrons = new ArrayList<>();
-            controlRods = new ArrayList<>();
-            neutronModerators = new ArrayList<>();
-            water = new ArrayList<>();
+            universalInitArrayLists();
 
             for (int x = 1; x <= Create.NUMROWS; x++) {
                 for (int y = 1; y <= Create.NUMCOLS; y++) {
@@ -130,8 +131,9 @@ public class Game extends PApplet {
 
         }
         else if (demoVersion == 2) {
-
             universalInitArrayLists();
+            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+            atoms.add(newAtom);
 
 
             Neutron testNeutron = new Neutron(250,  425, (float) 0);
@@ -139,11 +141,7 @@ public class Game extends PApplet {
 
         }
         else if (demoVersion == 3) {
-            atoms = new ArrayList<>();
-            neutrons = new ArrayList<>();
-            controlRods = new ArrayList<>();
-            neutronModerators = new ArrayList<>();
-            water = new ArrayList<>();
+            universalInitArrayLists();
 
             for (int x = 1; x <= Create.NUMROWS; x++) {
                 for (int y = 1; y <= Create.NUMCOLS; y++) {
@@ -160,11 +158,7 @@ public class Game extends PApplet {
             neutrons.add(testNeutron);
         }
         else if (demoVersion == 4) {
-            atoms = new ArrayList<>();
-            neutrons = new ArrayList<>();
-            controlRods = new ArrayList<>();
-            neutronModerators = new ArrayList<>();
-            water = new ArrayList<>();
+            universalInitArrayLists();
 
             for (int x = 1; x <= Create.NUMROWS; x++) {
                 for (int y = 1; y <= Create.NUMCOLS; y++) {
@@ -182,10 +176,11 @@ public class Game extends PApplet {
                 }
             }
 
-
         }
         else if (demoVersion == 5) {
             universalInitArrayLists();
+            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+            atoms.add(newAtom);
 
 
             Neutron neutronOne = new Neutron(450,  425, (float) 0);
@@ -194,11 +189,7 @@ public class Game extends PApplet {
             neutrons.add(neutronTwo);
         }
         else if (demoVersion == 6) {
-            atoms = new ArrayList<>();
-            neutrons = new ArrayList<>();
-            controlRods = new ArrayList<>();
-            neutronModerators = new ArrayList<>();
-            water = new ArrayList<>();
+            universalInitArrayLists();
 
             Neutron newNeutron = new Neutron(500, 425, 0);
             neutrons.add(newNeutron);
@@ -216,11 +207,9 @@ public class Game extends PApplet {
     private void universalInitArrayLists() {
         atoms = new ArrayList<>();
         neutrons = new ArrayList<>();
+        neutronModerators = new ArrayList<>();
         controlRods = new ArrayList<>();
         water = new ArrayList<>();
-
-        Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
-        atoms.add(newAtom);
     }
 
     public void draw() {
@@ -244,7 +233,7 @@ public class Game extends PApplet {
 
         }
 
-        ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());
+        if (Constants.AUTODEPLOY) ParticleHandler.autoDeployControlRods(controlRods, neutrons.size());
 
         for (ControlRod controlRod : controlRods) {
             controlRod.periodic(this);
@@ -255,7 +244,7 @@ public class Game extends PApplet {
         }
 
         for (int i = 0; i < neutrons.size(); i++) {
-            neutrons.get(i).periodic(this, neutrons, atoms, controlRods, neutronModerators, water);
+            neutrons.get(i).periodic(this, neutrons, atoms, controlRods, neutronModerators, water, click);
         }
 
         fill(0,0,0);
@@ -277,6 +266,27 @@ public class Game extends PApplet {
                 855, 844);
 
 
+    }
+
+    public void keyPressed() {
+        if (key == 'm') { Constants.CLICKMUTED = !Constants.CLICKMUTED; }
+
+        if (key == 'c') { Constants.AUTODEPLOY = !Constants.AUTODEPLOY; }
+
+        if (Constants.AUTODEPLOY) return;
+
+        if (keyCode == UP) {
+            upHeld = true;
+            ParticleHandler.manualDeployControlRodsUp(controlRods);
+        } else if (keyCode == DOWN) {
+            downHeld = true;
+            ParticleHandler.manualDeployControlRodsDown(controlRods);
+        }
+    }
+
+    public void keyReleased() {
+        if (keyCode == UP) upHeld = false;
+        else if (keyCode == DOWN) downHeld = false;
     }
 
     public static void main(String[] args) {

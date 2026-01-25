@@ -22,7 +22,6 @@ public class ControlRod {
         draw(window);
     }
 
-    // public float getDeployPercent() { return deployPercent; }
     public void setDeployPercent(float deployPercent) { this.deployPercent = deployPercent; }
 
     public float getBoundRight() { return x + width + 4; }

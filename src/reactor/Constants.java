@@ -11,6 +11,9 @@ public class Constants {
     // 5: Xenon demo
     public static int DEMOVERSION = 1;
 
+    public static boolean CLICKMUTED = false;
+    public static boolean AUTODEPLOY = true;
+
     public static String SETUPMESSAGE =
             "Welcome to reactor! Here is an overview of the available modes\n" +
             " 1. Full simulation\n" +
