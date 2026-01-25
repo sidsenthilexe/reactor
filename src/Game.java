@@ -206,7 +206,6 @@ public class Game extends PApplet {
             neutronModerators.add(newNeutronModerator);
 
         }
-
     }
 
     private void universalInitArrayLists() {
@@ -268,10 +267,16 @@ public class Game extends PApplet {
         stroke(0,0,0);
         textSize(16);
 
+        String controlMode;
+        if (Constants.AUTODEPLOY) controlMode = " (A)";
+        else controlMode = " (M)";
 
+        String muted;
+        if (Constants.CLICKMUTED) muted = "Audio Muted";
+        else muted = "";
 
         text("reactor     N: " + (neutrons.size())
-                        + "     CR: " + ParticleHandler.getCRDeployDoublePercent(),
+                        + "     CR: " + ParticleHandler.getCRDeployDoublePercent() + controlMode,
                 30, 844);
 
         text("     U: " + uraniumCount + " / " + atoms.size()
@@ -279,9 +284,8 @@ public class Game extends PApplet {
                 + "     " + frameCount + " @ " + (int)frameRate,
                 350, 844);
 
-        text("     " + gpuName,
+        text("     " + gpuName + "     " + muted,
                 855, 844);
-
 
     }
 

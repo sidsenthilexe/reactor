@@ -105,11 +105,13 @@ public class ParticleHandler {
     }
 
     public static void manualDeployControlRodsUp(ArrayList<ControlRod> controlRods) {
-        deployControlRodsTo(controlRods, Math.max(0, deployDoublePercent--));
+        deployDoublePercent = Math.max(0, deployDoublePercent-1);
+        deployControlRodsTo(controlRods, deployDoublePercent);
     }
 
     public static void manualDeployControlRodsDown(ArrayList<ControlRod> controlRods) {
-        deployControlRodsTo(controlRods, Math.min(200, deployDoublePercent++));
+        deployDoublePercent = Math.min(200, deployDoublePercent+1);
+        deployControlRodsTo(controlRods, deployDoublePercent);
     }
 
     public static void autoDeployControlRods(ArrayList<ControlRod> controlRods, int neutrons) {
