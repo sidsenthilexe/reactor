@@ -34,6 +34,8 @@ public class Game extends PApplet {
 
     private boolean upHeld = false;
     private boolean downHeld = false;
+    private int upFrame = 0;
+    private int downFrame = 0;
 
     public void settings() {
 
@@ -250,6 +252,18 @@ public class Game extends PApplet {
             neutrons.get(i).periodic(this, neutrons, atoms, controlRods, neutronModerators, water, click);
         }
 
+        if (!Constants.AUTODEPLOY) {
+            int KEY_REPEAT = 3;
+            if (upHeld && frameCount - upFrame >= KEY_REPEAT) {
+                ParticleHandler.manualDeployControlRodsUp(controlRods);
+                upFrame = frameCount;
+            }
+            if (downHeld && frameCount - downFrame >= KEY_REPEAT) {
+                ParticleHandler.manualDeployControlRodsDown(controlRods);
+                downFrame = frameCount;
+            }
+        }
+
         fill(0,0,0);
         stroke(0,0,0);
         textSize(16);
@@ -281,10 +295,13 @@ public class Game extends PApplet {
         if (keyCode == UP) {
             upHeld = true;
             ParticleHandler.manualDeployControlRodsUp(controlRods);
+            upFrame = frameCount;
         } else if (keyCode == DOWN) {
             downHeld = true;
             ParticleHandler.manualDeployControlRodsDown(controlRods);
+            downFrame = frameCount;
         }
+
     }
 
     public void keyReleased() {
