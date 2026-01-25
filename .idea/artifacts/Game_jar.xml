@@ -14,6 +14,8 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/gluegen-rt-natives-windows-amd64.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/gluegen-rt-natives-linux-aarch64.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/gluegen-rt-natives-linux-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/sound.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jsyn-17.1.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
