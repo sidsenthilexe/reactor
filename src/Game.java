@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import com.formdev.flatlaf.FlatDarkLaf;
 import processing.core.PFont;
 import processing.sound.*;
 import processing.opengl.*;
@@ -14,29 +15,28 @@ import java.util.ArrayList;
 
 public class Game extends PApplet {
 
-    ArrayList<Atom> atoms;
-    ArrayList<Neutron> neutrons;
-    ArrayList<ControlRod> controlRods;
-    ArrayList<NeutronModerator> neutronModerators;
-    ArrayList<Water> water;
+    private ArrayList<Atom> atoms;
+    private ArrayList<Neutron> neutrons;
+    private ArrayList<ControlRod> controlRods;
+    private ArrayList<NeutronModerator> neutronModerators;
+    private ArrayList<Water> water;
 
-    String gpuVendor = "N/A";
-    String gpuName = "N/A";
-    String rendererName;
+    private String gpuVendor = "N/A";
+    private String gpuName = "N/A";
 
-    PFont mono;
-    SoundFile click;
+    private SoundFile click;
 
-    int uraniumCount;
-    int xenonCount;
+    private int uraniumCount;
+    private int xenonCount;
 
-    int demoVersion = reactor.Constants.DEMOVERSION;
+    private int demoVersion = reactor.Constants.DEMOVERSION;
 
     private boolean upHeld = false;
     private boolean downHeld = false;
     private int upFrame = 0;
     private int downFrame = 0;
 
+    @Override
     public void settings() {
 
         setupWindows();
@@ -67,13 +67,12 @@ public class Game extends PApplet {
         Constants.DEMOVERSION = demoVersion;
     }
 
+    @Override
     public void setup() {
-
-
         surface.setTitle("reactor (github.com/sidsenthilexe/reactor)");
         frameRate(30);
 
-        mono = createFont("B612Mono-Regular.ttf", 16);
+        PFont mono = createFont("B612Mono-Regular.ttf", 16);
         textFont(mono);
 
         click = new SoundFile(this, "click.wav");
@@ -87,125 +86,138 @@ public class Game extends PApplet {
             pg.endPGL();
         }
 
-        rendererName = g.getClass().getName();
+        String rendererName = g.getClass().getName();
 
         System.out.println("JAVA: " + System.getProperty("java.version") + " " + System.getProperty("java.vendor") +
                 "\nRENDERER: " + rendererName +
                 "\nGRAPHICS DEVICE: " + gpuVendor + " " + gpuName);
 
-        if (demoVersion == 1) {
-            universalInitArrayLists();
-
-            for (int x = 1; x <= Create.NUMROWS; x++) {
-                for (int y = 1; y <= Create.NUMCOLS; y++) {
-                    AtomType newAtomType;
-
-                    if (x == 3 && y == 18) newAtomType = AtomType.URANIUM;
-                    else newAtomType = AtomType.NONFISSILE;
-
-                    Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
-                            Create.DISTANCE * y + Create.BUFFER,
-                            newAtomType);
-                    atoms.add(newAtom);
-
-                    Water newWater = new Water((Create.DISTANCE * x + Create.BUFFER) - 17,
-                            (Create.DISTANCE * y + Create.BUFFER) - 17);
-                    water.add(newWater);
-
-                }
-            }
-
-            for (int i = 0; i < 124; i++) {
-                int randomAtomIndex = (int) (Math.random() * 819);
-                atoms.get(randomAtomIndex).setAtomType(AtomType.URANIUM);
-            }
-
-            Neutron testNeutron = new Neutron(120,  100, 1f);
-            neutrons.add(testNeutron);
-
-
-            for (int x = 0; x < 10; x++) {
-                ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, ControlRodConstants.STARTPOS);
-                controlRods.add(newControlRod);
-            }
-
-            for (int x = 0; x < 10; x++) {
-                NeutronModerator newNeutronModerator = new NeutronModerator(NeutronModeratorConstants.DISTANCE * x + NeutronModeratorConstants.STARTGAP, NeutronModeratorConstants.STARTY);
-                neutronModerators.add(newNeutronModerator);
-            }
-
+        universalInitArrayLists();
+        switch(demoVersion) {
+            case 1:
+                demo1();
+                break;
+            case 2:
+                demo2();
+                break;
+            case 3:
+                demo3();
+                break;
+            case 4:
+                demo4();
+                break;
+            case 5:
+                demo5();
+                break;
+            case 6:
+                demo6();
+                break;
         }
-        else if (demoVersion == 2) {
-            universalInitArrayLists();
-            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
-            atoms.add(newAtom);
+    }
 
+    private void demo1() {
+        for (int x = 1; x <= Create.NUMROWS; x++) {
+            for (int y = 1; y <= Create.NUMCOLS; y++) {
+                AtomType newAtomType;
 
-            Neutron testNeutron = new Neutron(250,  425, (float) 0);
-            neutrons.add(testNeutron);
+                if (x == 3 && y == 18) newAtomType = AtomType.URANIUM;
+                else newAtomType = AtomType.NONFISSILE;
 
-        }
-        else if (demoVersion == 3) {
-            universalInitArrayLists();
+                Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
+                        Create.DISTANCE * y + Create.BUFFER,
+                        newAtomType);
+                atoms.add(newAtom);
 
-            for (int x = 1; x <= Create.NUMROWS; x++) {
-                for (int y = 1; y <= Create.NUMCOLS; y++) {
+                Water newWater = new Water((Create.DISTANCE * x + Create.BUFFER) - 17,
+                        (Create.DISTANCE * y + Create.BUFFER) - 17);
+                water.add(newWater);
 
-                    Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
-                            Create.DISTANCE * y + Create.BUFFER,
-                            AtomType.URANIUM);
-                    atoms.add(newAtom);
-
-                }
             }
-
-            Neutron testNeutron = new Neutron(1,  1, (float) Math.PI / 4);
-            neutrons.add(testNeutron);
         }
-        else if (demoVersion == 4) {
-            universalInitArrayLists();
 
-            for (int x = 1; x <= Create.NUMROWS; x++) {
-                for (int y = 1; y <= Create.NUMCOLS; y++) {
-                    Water newWater = new Water((Create.DISTANCE * x + Create.BUFFER) - 17,
-                            (Create.DISTANCE * y + Create.BUFFER) - 17);
-                    water.add(newWater);
-
-                }
-            }
-
-            for (int x = 1; x < 50; x++) {
-                for (int y = 1; y < 25; y++) {
-                    Neutron newNeutron = new Neutron(x * (15) - 600, y * (30) + 50, (float) ((Math.random() * Math.PI / 6) - Math.PI / 12));
-                    neutrons.add(newNeutron);
-                }
-            }
-
+        for (int i = 0; i < 124; i++) {
+            int randomAtomIndex = (int) (Math.random() * 819);
+            atoms.get(randomAtomIndex).setAtomType(AtomType.URANIUM);
         }
-        else if (demoVersion == 5) {
-            universalInitArrayLists();
-            Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
-            atoms.add(newAtom);
+
+        Neutron testNeutron = new Neutron(120,  100, 1f);
+        neutrons.add(testNeutron);
 
 
-            Neutron neutronOne = new Neutron(450,  425, (float) 0);
-            Neutron neutronTwo = new Neutron(50, 425, 0F);
-            neutrons.add(neutronOne);
-            neutrons.add(neutronTwo);
+        for (int x = 0; x < 10; x++) {
+            ControlRod newControlRod = new ControlRod(ControlRodConstants.DISTANCE * x + ControlRodConstants.STARTGAP, ControlRodConstants.STARTPOS);
+            controlRods.add(newControlRod);
         }
-        else if (demoVersion == 6) {
-            universalInitArrayLists();
 
-            Neutron newNeutron = new Neutron(500, 425, 0);
-            neutrons.add(newNeutron);
-
-            Atom newAtom = new Atom(700, 425, AtomType.URANIUM);
-            atoms.add(newAtom);
-
-            NeutronModerator newNeutronModerator = new NeutronModerator(900, 34);
+        for (int x = 0; x < 10; x++) {
+            NeutronModerator newNeutronModerator = new NeutronModerator(NeutronModeratorConstants.DISTANCE * x + NeutronModeratorConstants.STARTGAP, NeutronModeratorConstants.STARTY);
             neutronModerators.add(newNeutronModerator);
-
         }
+    }
+
+    private void demo2() {
+        Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+        atoms.add(newAtom);
+
+
+        Neutron testNeutron = new Neutron(250,  425, (float) 0);
+        neutrons.add(testNeutron);
+    }
+
+    private void demo3() {
+        for (int x = 1; x <= Create.NUMROWS; x++) {
+            for (int y = 1; y <= Create.NUMCOLS; y++) {
+
+                Atom newAtom = new Atom(Create.DISTANCE * x + Create.BUFFER,
+                        Create.DISTANCE * y + Create.BUFFER,
+                        AtomType.URANIUM);
+                atoms.add(newAtom);
+
+            }
+        }
+
+        Neutron testNeutron = new Neutron(1,  1, (float) Math.PI / 4);
+        neutrons.add(testNeutron);
+    }
+
+    private void demo4() {
+        for (int x = 1; x <= Create.NUMROWS; x++) {
+            for (int y = 1; y <= Create.NUMCOLS; y++) {
+                Water newWater = new Water((Create.DISTANCE * x + Create.BUFFER) - 17,
+                        (Create.DISTANCE * y + Create.BUFFER) - 17);
+                water.add(newWater);
+
+            }
+        }
+
+        for (int x = 1; x < 50; x++) {
+            for (int y = 1; y < 25; y++) {
+                Neutron newNeutron = new Neutron(x * (15) - 600, y * (30) + 50, (float) ((Math.random() * Math.PI / 6) - Math.PI / 12));
+                neutrons.add(newNeutron);
+            }
+        }
+    }
+
+    private void demo5() {
+        Atom newAtom = new Atom(800, 425, AtomType.URANIUM);
+        atoms.add(newAtom);
+
+
+        Neutron neutronOne = new Neutron(450,  425, (float) 0);
+        Neutron neutronTwo = new Neutron(50, 425, 0F);
+        neutrons.add(neutronOne);
+        neutrons.add(neutronTwo);
+    }
+
+    private void demo6() {
+        Neutron newNeutron = new Neutron(500, 425, 0);
+        neutrons.add(newNeutron);
+
+        Atom newAtom = new Atom(700, 425, AtomType.URANIUM);
+        atoms.add(newAtom);
+
+        NeutronModerator newNeutronModerator = new NeutronModerator(900, 34);
+        neutronModerators.add(newNeutronModerator);
     }
 
     private void universalInitArrayLists() {
@@ -307,7 +319,6 @@ public class Game extends PApplet {
         }
 
     }
-
     public void keyReleased() {
         if (keyCode == UP) upHeld = false;
         else if (keyCode == DOWN) downHeld = false;
@@ -317,6 +328,8 @@ public class Game extends PApplet {
         System.setProperty("NV_OPTIMUS_ENABLEMENT", "1");
         System.setProperty("AMD_SWITCHABLE_GRAPHICS_ENABLEMENT", "1");
         System.setProperty("sun.java2d.opengl", "true");
+
+        FlatDarkLaf.setup();
 
         PApplet.main("Game");
     }
